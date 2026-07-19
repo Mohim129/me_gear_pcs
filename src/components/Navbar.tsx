@@ -12,7 +12,8 @@ import {
   X, 
   LayoutDashboard, 
   LogOut, 
-  UserCircle 
+  UserCircle,
+  Wrench 
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useCartStore } from "@/store/cart";
@@ -63,6 +64,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/products" },
+    { name: "PC Builder", href: "/builder", icon: Wrench },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -95,12 +97,13 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 ${
+                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 flex items-center gap-1.5 ${
                   isLinkActive(link.href)
                     ? "text-rust-copper border-b-2 border-rust-copper pb-1"
                     : "text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
                 }`}
               >
+                {link.icon && <link.icon className="h-4 w-4" />}
                 {link.name}
               </Link>
             ))}
@@ -279,7 +282,10 @@ export default function Navbar() {
                   : "text-slate-gray hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
               }`}
             >
-              {link.name}
+              <span className="flex items-center gap-2">
+                {link.icon && <link.icon className="h-4 w-4" />}
+                {link.name}
+              </span>
             </Link>
           ))}
 
