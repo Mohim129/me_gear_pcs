@@ -1,6 +1,5 @@
 import { loadEnvConfig } from "@next/env";
 import { MongoClient, ObjectId } from "mongodb";
-import bcrypt from "bcryptjs";
 
 // Load environment variables
 loadEnvConfig(process.cwd());
@@ -30,6 +29,7 @@ async function seed() {
     const db = client.db(dbName);
 
     // ── SEED USERS ──
+    const { auth } = await import("../lib/auth");
     const usersToSeed = [
       {
         name: "Demo User",
@@ -48,69 +48,41 @@ async function seed() {
     for (const u of usersToSeed) {
       console.log(`Processing user: ${u.email}...`);
       const lowercaseEmail = u.email.toLowerCase();
-      const hashedPassword = await bcrypt.hash(u.password, 10);
 
+      // Find and delete the existing user and account to avoid collisions
       const existingUser = await db.collection("user").findOne({ email: lowercaseEmail });
-      let userId: string;
-
-      if (!existingUser) {
-        userId = new ObjectId().toString();
-        await db.collection("user").insertOne({
-          _id: userId,
-          name: u.name,
-          email: lowercaseEmail,
-          emailVerified: true,
-          image: null,
-          role: u.role,
-          phone: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        } as any);
-        console.log(`Created new user with ID: ${userId}`);
-      } else {
-        userId = existingUser._id.toString();
-        await db.collection("user").updateOne(
-          { _id: userId } as any,
-          {
-            $set: {
-              name: u.name,
-              role: u.role,
-              updatedAt: new Date(),
-            },
-          }
-        );
-        console.log(`Updated existing user with ID: ${userId}`);
+      if (existingUser) {
+        const userId = existingUser._id;
+        await db.collection("user").deleteOne({ _id: userId } as any);
+        await db.collection("account").deleteMany({ userId: userId } as any);
+        await db.collection("session").deleteMany({ userId: userId } as any);
+        console.log(`Deleted existing user/accounts for ${lowercaseEmail}`);
       }
 
-      const existingAccount = await db.collection("account").findOne({
-        userId: userId,
-        providerId: "credential",
-      });
+      // Call Better Auth's signUpEmail
+      try {
+        await auth.api.signUpEmail({
+          body: {
+            email: lowercaseEmail,
+            password: u.password,
+            name: u.name,
+          },
+        });
+        console.log(`Successfully signed up ${lowercaseEmail} programmatically.`);
 
-      if (!existingAccount) {
-        const accountId = new ObjectId().toString();
-        await db.collection("account").insertOne({
-          _id: accountId,
-          userId: userId,
-          accountId: lowercaseEmail,
-          providerId: "credential",
-          password: hashedPassword,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        } as any);
-        console.log(`Created new account record for: ${lowercaseEmail}`);
-      } else {
-        await db.collection("account").updateOne(
-          { userId: userId, providerId: "credential" } as any,
+        // Now update the user's role and emailVerified directly in the database
+        await db.collection("user").updateOne(
+          { email: lowercaseEmail },
           {
             $set: {
-              accountId: lowercaseEmail,
-              password: hashedPassword,
-              updatedAt: new Date(),
+              role: u.role,
+              emailVerified: true,
             },
           }
         );
-        console.log(`Updated credentials for: ${lowercaseEmail}`);
+        console.log(`Set role to "${u.role}" for ${lowercaseEmail}`);
+      } catch (err: any) {
+        console.error(`Failed to register ${lowercaseEmail}:`, err?.message || err);
       }
     }
 

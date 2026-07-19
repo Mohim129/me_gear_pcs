@@ -3,17 +3,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Search, 
-  Heart, 
-  ShoppingBag, 
-  User, 
-  Menu, 
-  X, 
-  LayoutDashboard, 
-  LogOut, 
+import {
+  Search,
+  Heart,
+  ShoppingBag,
+  User,
+  Menu,
+  X,
+  LayoutDashboard,
+  LogOut,
   UserCircle,
-  Wrench 
+  Wrench
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useCartStore } from "@/store/cart";
@@ -22,11 +22,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
   const cartItems = useCartStore((state) => state.items);
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Prevent hydration mismatch for Zustand persisted state
@@ -97,11 +97,10 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 flex items-center gap-1.5 ${
-                  isLinkActive(link.href)
+                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 flex items-center gap-1.5 ${isLinkActive(link.href)
                     ? "text-rust-copper border-b-2 border-rust-copper pb-1"
                     : "text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
-                }`}
+                  }`}
               >
                 {link.icon && <link.icon className="h-4 w-4" />}
                 {link.name}
@@ -240,7 +239,7 @@ export default function Navbar() {
                       Login
                     </Link>
                     <Link
-                      href="/signup"
+                      href="/register"
                       className="text-sm font-medium text-white bg-rust-copper hover:bg-rust-copper/90 px-4 py-1.5 rounded-full shadow-sm hover:shadow transition-all"
                     >
                       Sign Up
@@ -276,11 +275,10 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-                isLinkActive(link.href)
+              className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${isLinkActive(link.href)
                   ? "bg-rust-copper/10 text-rust-copper"
                   : "text-slate-gray hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
-              }`}
+                }`}
             >
               <span className="flex items-center gap-2">
                 {link.icon && <link.icon className="h-4 w-4" />}
@@ -368,7 +366,7 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link
-                    href="/signup"
+                    href="/register"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-center rounded-md bg-rust-copper py-2 text-sm font-medium text-white hover:bg-rust-copper/90"
                   >
