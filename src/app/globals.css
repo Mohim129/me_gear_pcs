@@ -15,3 +15,23 @@ body {
   color: #1a1a1a;
   font-family: var(--font-body);
 }
+
+@keyframes rgb-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.ai-suggested-border {
+  position: relative;
+  border: 2.5px solid transparent !important;
+  background-image: linear-gradient(to right, white, white), linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #00ff7f, #ff007f);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 200% 200%;
+  animation: rgb-slide 3s linear infinite;
+}
+
+.dark .ai-suggested-border {
+  background-image: linear-gradient(to right, #121214, #121214), linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #00ff7f, #ff007f);
+}

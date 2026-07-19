@@ -7,6 +7,8 @@ export interface CartItem {
   price: number;
   quantity: number;
   image?: string;
+  type?: "custom_build";
+  components?: Record<string, any>;
 }
 
 interface CartState {
