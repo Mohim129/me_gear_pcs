@@ -64,7 +64,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/products" },
-    { name: "PC Builder", href: "/builder", icon: Wrench },
+    { name: "PC Builder", href: "/pc-builder", icon: Wrench },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -98,8 +98,8 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 flex items-center gap-1.5 ${isLinkActive(link.href)
-                    ? "text-rust-copper border-b-2 border-rust-copper pb-1"
-                    : "text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
+                  ? "text-rust-copper border-b-2 border-rust-copper pb-1"
+                  : "text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
                   }`}
               >
                 {link.icon && <link.icon className="h-4 w-4" />}
@@ -276,8 +276,8 @@ export default function Navbar() {
               href={link.href}
               onClick={() => setIsOpen(false)}
               className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${isLinkActive(link.href)
-                  ? "bg-rust-copper/10 text-rust-copper"
-                  : "text-slate-gray hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
+                ? "bg-rust-copper/10 text-rust-copper"
+                : "text-slate-gray hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
             >
               <span className="flex items-center gap-2">
