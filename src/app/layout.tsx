@@ -3,6 +3,7 @@ import { Montserrat, Inter, Russo_One } from "next/font/google";
 import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import QueryProvider from "@/components/QueryProvider";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -42,12 +43,14 @@ export default function RootLayout({
       className={`${montserrat.variable} ${inter.variable} ${russoOne.variable} h-full`}
     >
       <body className="antialiased min-h-screen bg-warm-cream">
-        <div id="root" className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
-          <Footer />
-        </div>
-        <Toaster richColors position="top-right" />
+        <QueryProvider>
+          <div id="root" className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+          </div>
+          <Toaster richColors position="top-right" />
+        </QueryProvider>
       </body>
     </html>
   );

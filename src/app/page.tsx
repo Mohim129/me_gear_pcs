@@ -1,65 +1,71 @@
-import Image from "next/image";
+import React from "react";
+import { connectToDatabase } from "@/lib/db";
+import HeroSlider from "@/components/home/HeroSlider";
+import CategoriesGrid from "@/components/home/CategoriesGrid";
+import ProductGridSection from "@/components/home/ProductGridSection";
+import FeaturesSection from "@/components/home/FeaturesSection";
+import StatsBar from "@/components/home/StatsBar";
+import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
+import NewsletterFaq from "@/components/home/NewsletterFaq";
 
-export default function Home() {
+export const revalidate = 60; // revalidate every minute
+
+export default async function Home() {
+  let categories: any[] = [];
+
+  try {
+    const { db } = await connectToDatabase();
+    const rawCategories = await db
+      .collection("categories")
+      .find({})
+      .sort({ createdAt: 1 })
+      .toArray();
+
+    categories = rawCategories.map((cat) => ({
+      _id: cat._id.toString(),
+      name: cat.name,
+      slug: cat.slug,
+      description: cat.description || "",
+    }));
+  } catch (error) {
+    console.error("Failed to load categories in homepage server component:", error);
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="flex flex-col w-full bg-warm-cream">
+      {/* 1. Hero Slider */}
+      <HeroSlider />
+
+      {/* 2. Categories Bento-Grid */}
+      <CategoriesGrid categories={categories} />
+
+      {/* 3. New Arrivals */}
+      <ProductGridSection
+        title="New Arrivals"
+        subtitle="Check out our latest powerhouses and premium components just added to the store"
+        sort="newest"
+        limit={4}
+      />
+
+      {/* 4. Best Sellers */}
+      <ProductGridSection
+        title="Best Sellers"
+        subtitle="The highest-rated gear and components favored by our community of builders"
+        sort="rating"
+        limit={4}
+      />
+
+      {/* 5. Features Section */}
+      <FeaturesSection />
+
+      {/* 6. Statistics Bar */}
+      <StatsBar />
+
+      {/* 7. Testimonials Carousel */}
+      <TestimonialsCarousel />
+
+      {/* 8. Newsletter & FAQ */}
+      <NewsletterFaq />
     </div>
   );
 }
