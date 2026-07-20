@@ -32,36 +32,40 @@ export async function PUT(request: NextRequest) {
     }
 
     const { db } = await connectToDatabase();
+    const queryId = ObjectId.isValid(session.user.id)
+      ? new ObjectId(session.user.id)
+      : session.user.id;
 
-    // Get user with password
-    const user = await db.collection("user").findOne({ _id: new ObjectId(session.user.id) });
+    const user = await db.collection("user").findOne({ _id: queryId as any });
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Verify current password
-    const isValid = await bcrypt.compare(currentPassword, user.password);
-    if (!isValid) {
-      return NextResponse.json(
-        { error: "Current password is incorrect" },
-        { status: 400 },
-      );
+    const hasExistingPassword = !!user.password;
+    if (hasExistingPassword) {
+      const isValid = await bcrypt.compare(currentPassword, user.password);
+      if (!isValid) {
+        return NextResponse.json(
+          { error: "Current password is incorrect" },
+          { status: 400 },
+        );
+      }
     }
 
-    // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 12);
     await db
       .collection("user")
       .updateOne(
-        { _id: new ObjectId(session.user.id) },
+        { _id: queryId as any },
         { $set: { password: hashedPassword } },
       );
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error("Password change error:", error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Password change error:", message);
     return NextResponse.json(
-      { error: error.message || "Failed to change password" },
+      { error: message || "Failed to change password" },
       { status: 500 },
     );
   }

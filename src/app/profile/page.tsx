@@ -5,6 +5,22 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+interface UserOrderItem {
+  quantity: number;
+}
+
+interface UserOrder {
+  _id: string;
+  status: string;
+  totalPrice: number;
+  items: UserOrderItem[];
+  createdAt: string;
+}
+
+interface UserProfile {
+  hasPassword?: boolean;
+}
 import {
   User,
   ShoppingBag,
@@ -64,14 +80,15 @@ export default function ProfilePage() {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState(session?.user?.name || "");
-  const [phone, setPhone] = useState((session?.user as any)?.phone || "");
+  const [phone, setPhone] = useState<string>((session?.user as { phone?: string })?.phone ?? "");
   const [isSavingProfile, setIsSavingProfile] = useState(false);
-  const [hasPassword, setHasPassword] = useState(true);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+
+  const isPasswordless = profileData?.hasPassword === false;
 
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -94,10 +111,11 @@ export default function ProfilePage() {
   const lastUserId = useRef<string | null>(null);
 
   React.useEffect(() => {
-    if (profileData) {
-      setHasPassword(profileData.hasPassword ?? true);
+    if (session?.user) {
+      setName(session.user.name || "");
+      setPhone(session.user.phone ?? "");
     }
-  }, [profileData]);
+  }, [session]);
 
   React.useEffect(() => {
     if (!isPending && !session) {
@@ -205,15 +223,18 @@ export default function ProfilePage() {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       queryClient.invalidateQueries({ queryKey: ["userProfile"] });
       toast.success("Profile updated successfully!");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to update profile.");
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      toast.error(message || "Failed to update profile.");
     } finally {
       setIsSavingProfile(false);
     }
   };
 
   const handleChangePassword = async () => {
-    if (!currentPassword) {
+    const isPasswordless = profileData?.hasPassword === false;
+
+    if (!isPasswordless && !currentPassword) {
       toast.error("Current password is required.");
       return;
     }
@@ -228,10 +249,13 @@ export default function ProfilePage() {
 
     setIsChangingPassword(true);
     try {
+      const payload: Record<string, string> = { newPassword };
+      if (!isPasswordless) payload.currentPassword = currentPassword;
+
       const res = await fetch("/api/user/change-password", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ currentPassword, newPassword }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to change password");
@@ -240,8 +264,9 @@ export default function ProfilePage() {
       setNewPassword("");
       setConfirmPassword("");
       toast.success("Password changed successfully!");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to change password.");
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      toast.error(message || "Failed to change password.");
     } finally {
       setIsChangingPassword(false);
     }
@@ -375,12 +400,19 @@ export default function ProfilePage() {
             </div>
 
             {/* Change Password */}
-            {hasPassword && (
-              <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
+              <div className="flex flex-col gap-2">
                 <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
-                  Change Password
+                  {profileData?.hasPassword === false ? "Set Account Password" : "Change Password"}
                 </h3>
-                <div className="space-y-4">
+                {profileData?.hasPassword === false && (
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Your account currently uses social login. Set a password here to enable email/password sign-in later.
+                  </p>
+                )}
+              </div>
+              <div className="space-y-4">
+                {profileData?.hasPassword !== false && (
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                       Current Password
@@ -393,45 +425,45 @@ export default function ProfilePage() {
                       className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="At least 6 characters"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Confirm New Password
-                    </label>
-                    <input
-                      type="password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Re-enter new password"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
-                    />
-                  </div>
-                  <button
-                    onClick={handleChangePassword}
-                    disabled={isChangingPassword}
-                    className="flex items-center gap-2 bg-rust-copper hover:bg-rust-copper/90 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                  >
-                    {isChangingPassword ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Check className="h-4 w-4" />
-                    )}
-                    Change Password
-                  </button>
+                )}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    New Password
+                  </label>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="At least 6 characters"
+                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  />
                 </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Confirm New Password
+                  </label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Re-enter new password"
+                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  />
+                </div>
+                <button
+                  onClick={handleChangePassword}
+                  disabled={isChangingPassword}
+                  className="flex items-center gap-2 bg-rust-copper hover:bg-rust-copper/90 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {isChangingPassword ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Check className="h-4 w-4" />
+                  )}
+                  {profileData?.hasPassword === false ? "Set Password" : "Change Password"}
+                </button>
               </div>
-            )}
+            </div>
           </div>
         );
 
