@@ -248,7 +248,7 @@ export default function PCBuilderClient() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-gray-200/80 pb-6 mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+          <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
             <Wrench className="h-7 w-7 text-rust-copper" />
             PC BUILDER
           </h1>
@@ -342,7 +342,7 @@ export default function PCBuilderClient() {
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
         <div className="lg:col-span-7 space-y-8">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold font-heading text-slate-gray flex items-center gap-2 border-b border-gray-200 pb-2">
+            <h3 className="text-lg font-bold font-heading text-slate-900 dark:text-zinc-100 flex items-center gap-2 border-b border-gray-200 pb-2">
               <span className="bg-rust-copper text-white rounded-lg p-1 text-xs">01</span>
               CORE COMPONENTS
               <span className="text-xs font-medium text-gray-400">(Mandatory fields marked with *)</span>
@@ -372,7 +372,7 @@ export default function PCBuilderClient() {
                             <SlotIcon className="h-6 w-6" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-300">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-300">
                               {slot.name}
                             </h4>
                             <span className={`text-xs font-semibold flex items-center gap-1 mt-0.5 ${slot.required ? "text-red-500" : "text-gray-400"
@@ -384,7 +384,7 @@ export default function PCBuilderClient() {
 
                         <button
                           onClick={() => setActivePicker({ slug: slot.slug, name: slot.name })}
-                          className="flex items-center gap-1 bg-white hover:bg-gray-50 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-slate-gray dark:text-zinc-200 border border-gray-300 dark:border-zinc-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
+                          className="flex items-center gap-1 bg-white hover:bg-gray-50 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-slate-900 dark:text-zinc-200 border border-gray-300 dark:border-zinc-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
                         >
                           + Select
                         </button>
@@ -414,7 +414,7 @@ export default function PCBuilderClient() {
                                 </span>
                               )}
                             </div>
-                            <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-100 truncate">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100 truncate">
                               {product.name}
                             </h4>
                             <p className="text-sm font-bold text-rust-copper mt-0.5">
@@ -445,7 +445,7 @@ export default function PCBuilderClient() {
                           )}
                           <button
                             onClick={() => setActivePicker({ slug: slot.slug, name: slot.name })}
-                            className="bg-white hover:bg-gray-50 border border-gray-300 text-slate-gray font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
+                            className="bg-white hover:bg-gray-50 border border-gray-300 text-slate-900 dark:text-zinc-100 font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
                           >
                             Change
                           </button>
@@ -469,7 +469,7 @@ export default function PCBuilderClient() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-bold font-heading text-slate-gray flex items-center gap-2 border-b border-gray-200 pb-2">
+            <h3 className="text-lg font-bold font-heading text-slate-900 dark:text-zinc-100 flex items-center gap-2 border-b border-gray-200 pb-2">
               <span className="bg-rust-copper text-white rounded-lg p-1 text-xs">02</span>
               PERIPHERALS
               <span className="text-xs font-medium text-gray-400">(Optional items)</span>
@@ -495,7 +495,7 @@ export default function PCBuilderClient() {
                             <SlotIcon className="h-6 w-6" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-300">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-300">
                               {slot.name}
                             </h4>
                             <span className="text-xs text-gray-400 font-semibold mt-0.5">
@@ -506,7 +506,7 @@ export default function PCBuilderClient() {
 
                         <button
                           onClick={() => setActivePicker({ slug: slot.slug, name: slot.name })}
-                          className="flex items-center gap-1 bg-white hover:bg-gray-50 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-slate-gray dark:text-zinc-200 border border-gray-300 dark:border-zinc-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
+                          className="flex items-center gap-1 bg-white hover:bg-gray-50 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-slate-900 dark:text-zinc-200 border border-gray-300 dark:border-zinc-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
                         >
                           + Select
                         </button>
@@ -528,7 +528,7 @@ export default function PCBuilderClient() {
                             <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
                               {product.brand}
                             </span>
-                            <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-100 truncate">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100 truncate">
                               {product.name}
                             </h4>
                             <p className="text-sm font-bold text-rust-copper mt-0.5">
@@ -540,7 +540,7 @@ export default function PCBuilderClient() {
                         <div className="flex items-center gap-2.5 self-end sm:self-auto">
                           <button
                             onClick={() => setActivePicker({ slug: slot.slug, name: slot.name })}
-                            className="bg-white hover:bg-gray-50 border border-gray-300 text-slate-gray font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
+                            className="bg-white hover:bg-gray-50 border border-gray-300 text-slate-900 dark:text-zinc-100 font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
                           >
                             Change
                           </button>
@@ -566,7 +566,7 @@ export default function PCBuilderClient() {
         <div className="lg:col-span-3">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-6 shadow-md sticky top-24 space-y-6">
             <div>
-              <h3 className="font-heading text-lg font-bold text-slate-gray dark:text-zinc-200 border-b border-gray-150 pb-3">
+              <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-zinc-200 border-b border-gray-150 pb-3">
                 BUILD SUMMARY
               </h3>
             </div>
@@ -582,7 +582,7 @@ export default function PCBuilderClient() {
                   .map(([slotSlug, product]) => {
                     const label = [...CORE_SLOTS, ...PERIPHERAL_SLOTS].find((s) => s.slug === slotSlug)?.name || slotSlug;
                     return (
-                      <div key={slotSlug} className="flex justify-between items-start gap-2.5 text-xs text-slate-gray dark:text-zinc-300">
+                      <div key={slotSlug} className="flex justify-between items-start gap-2.5 text-xs text-slate-900 dark:text-zinc-300">
                         <div className="min-w-0">
                           <span className="block font-bold text-[10px] text-gray-400 uppercase tracking-wider">{label}</span>
                           <span className="block font-medium truncate max-w-[160px]">{product!.name}</span>
@@ -597,11 +597,11 @@ export default function PCBuilderClient() {
             </div>
 
             <div className="bg-gray-50 dark:bg-zinc-850 p-4 rounded-2xl space-y-2 border border-gray-150/50 dark:border-zinc-800/40">
-              <div className="flex items-center justify-between text-xs text-slate-gray dark:text-zinc-300">
+              <div className="flex items-center justify-between text-xs text-slate-900 dark:text-zinc-300">
                 <span className="font-semibold">Estimated Power Draw:</span>
                 <span className="font-bold text-rust-copper">{estWattage} W</span>
               </div>
-              <div className="flex items-center justify-between text-xs text-slate-gray dark:text-zinc-300">
+              <div className="flex items-center justify-between text-xs text-slate-900 dark:text-zinc-300">
                 <span className="font-semibold">Selected PSU Output:</span>
                 <span className="font-bold">
                   {psuWattage ? `${psuWattage} W` : (
@@ -612,7 +612,7 @@ export default function PCBuilderClient() {
               {!psuWattage && (
                 <p className="text-[10px] text-gray-400 flex items-center gap-1 mt-1 leading-normal">
                   <Info className="h-3.5 w-3.5 flex-shrink-0 text-rust-copper" />
-                  We recommend a PSU with at least <strong className="text-slate-gray">{estWattage}W</strong> output power.
+                  We recommend a PSU with at least <strong className="text-slate-900 dark:text-zinc-100">{estWattage}W</strong> output power.
                 </p>
               )}
             </div>
@@ -640,7 +640,7 @@ export default function PCBuilderClient() {
               <button
                 onClick={handleSaveBuild}
                 disabled={isSaving || Object.keys(selectedComponents).length === 0}
-                className="w-full flex items-center justify-center gap-2 rounded-xl border border-gray-300 hover:bg-gray-50 dark:border-zinc-700 dark:hover:bg-zinc-800 text-slate-gray dark:text-zinc-200 font-bold text-sm py-2.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 rounded-xl border border-gray-300 hover:bg-gray-50 dark:border-zinc-700 dark:hover:bg-zinc-800 text-slate-900 dark:text-zinc-200 font-bold text-sm py-2.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isSaving ? (
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-gray border-t-transparent" />

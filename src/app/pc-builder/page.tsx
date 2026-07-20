@@ -13,7 +13,7 @@ export default function PCBuilderPage() {
         <div className="flex min-h-[70vh] items-center justify-center bg-warm-cream">
           <div className="flex flex-col items-center gap-4">
             <div className="h-10 w-10 animate-spin rounded-full border-4 border-rust-copper border-t-transparent" />
-            <p className="text-sm font-semibold text-slate-gray animate-pulse">
+            <p className="text-sm font-semibold text-slate-900 dark:text-zinc-100 animate-pulse">
               Initializing PC Builder workspace...
             </p>
           </div>

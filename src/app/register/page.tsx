@@ -126,7 +126,7 @@ export default function RegisterPage() {
         <div className="w-full max-w-md space-y-7 bg-white p-8 rounded-3xl border border-gray-200/80 shadow-xl shadow-gray-200/30">
           
           <div className="text-center">
-            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-gray">
+            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-zinc-100">
               Create Account
             </h3>
             <p className="text-sm text-gray-500 mt-2">
@@ -138,7 +138,7 @@ export default function RegisterPage() {
           <form onSubmit={handleRegister} className="space-y-4">
             {/* Full Name */}
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+              <label htmlFor="name" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                 Full Name
               </label>
               <div className="relative">
@@ -149,7 +149,7 @@ export default function RegisterPage() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
@@ -157,7 +157,7 @@ export default function RegisterPage() {
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+              <label htmlFor="email" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                 Email Address
               </label>
               <div className="relative">
@@ -168,7 +168,7 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label htmlFor="password" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+              <label htmlFor="password" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                 Password
               </label>
               <div className="relative">
@@ -187,13 +187,13 @@ export default function RegisterPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Min. 8 characters"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-gray focus:outline-none"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-900 dark:text-zinc-100 focus:outline-none"
                 >
                   {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                 </button>
@@ -202,7 +202,7 @@ export default function RegisterPage() {
 
             {/* Confirm Password */}
             <div className="space-y-1.5">
-              <label htmlFor="confirmPassword" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+              <label htmlFor="confirmPassword" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                 Confirm Password
               </label>
               <div className="relative">
@@ -213,13 +213,13 @@ export default function RegisterPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Repeat your password"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-gray focus:outline-none"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-900 dark:text-zinc-100 focus:outline-none"
                 >
                   {showConfirmPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                 </button>
@@ -277,7 +277,7 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={handleGoogleSignup}
-            className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-300 py-3 text-sm font-semibold text-slate-gray hover:bg-gray-50 hover:border-gray-400 transition-colors"
+            className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-300 py-3 text-sm font-semibold text-slate-900 dark:text-zinc-100 hover:bg-gray-50 hover:border-gray-400 transition-colors"
           >
             <GoogleIcon />
             Sign up with Google

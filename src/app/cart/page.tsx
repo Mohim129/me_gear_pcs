@@ -62,7 +62,7 @@ export default function CartPage() {
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mx-auto mb-6">
           <ShoppingBag className="h-10 w-10 text-gray-300" />
         </div>
-        <h1 className="font-heading text-2xl font-bold text-slate-gray mb-2">
+        <h1 className="font-heading text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-2">
           Your Cart is Empty
         </h1>
         <p className="text-sm text-gray-500 mb-8">
@@ -91,7 +91,7 @@ export default function CartPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <ShoppingBag className="h-7 w-7 text-rust-copper" />
           YOUR CART
         </h1>
@@ -134,7 +134,7 @@ export default function CartPage() {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-heading font-bold text-sm text-slate-gray dark:text-zinc-100 truncate">
+                  <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-zinc-100 truncate">
                     {item.name}
                   </h3>
                   <p className="text-sm font-bold text-rust-copper mt-0.5">
@@ -167,16 +167,16 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         disabled={item.quantity <= 1}
-                        className="px-2.5 py-1.5 text-gray-500 hover:text-slate-gray disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
+                        className="px-2.5 py-1.5 text-gray-500 hover:text-slate-900 dark:text-zinc-100 disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="w-8 text-center font-heading font-semibold text-slate-gray dark:text-zinc-200 text-sm">
+                      <span className="w-8 text-center font-heading font-semibold text-slate-900 dark:text-zinc-200 text-sm">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="px-2.5 py-1.5 text-gray-500 hover:text-slate-gray cursor-pointer"
+                        className="px-2.5 py-1.5 text-gray-500 hover:text-slate-900 dark:text-zinc-100 cursor-pointer"
                       >
                         <Plus className="h-3.5 w-3.5" />
                       </button>
@@ -184,7 +184,7 @@ export default function CartPage() {
                   )}
 
                   <div className="text-right min-w-[80px]">
-                    <span className="font-heading font-bold text-slate-gray dark:text-zinc-100 text-sm">
+                    <span className="font-heading font-bold text-slate-900 dark:text-zinc-100 text-sm">
                       ৳{(item.price * item.quantity).toLocaleString()}
                     </span>
                   </div>
@@ -219,7 +219,7 @@ export default function CartPage() {
                               <span className="block font-bold text-[10px] text-gray-400 uppercase tracking-wider">
                                 {slot}
                               </span>
-                              <span className="block font-medium text-slate-gray dark:text-zinc-300 truncate max-w-[180px]">
+                              <span className="block font-medium text-slate-900 dark:text-zinc-300 truncate max-w-[180px]">
                                 {component.name}
                               </span>
                             </div>
@@ -239,14 +239,14 @@ export default function CartPage() {
         {/* Summary Sidebar */}
         <div className="lg:col-span-3">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-6 shadow-md sticky top-24 space-y-6">
-            <h3 className="font-heading text-lg font-bold text-slate-gray dark:text-zinc-200 border-b border-gray-150 pb-3">
+            <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-zinc-200 border-b border-gray-150 pb-3">
               ORDER SUMMARY
             </h3>
 
             <div className="space-y-3">
               <div className="flex justify-between text-sm text-gray-600 dark:text-zinc-400">
                 <span>Subtotal ({items.length} items)</span>
-                <span className="font-semibold text-slate-gray dark:text-zinc-200">
+                <span className="font-semibold text-slate-900 dark:text-zinc-200">
                   ৳{subtotal.toLocaleString()}
                 </span>
               </div>

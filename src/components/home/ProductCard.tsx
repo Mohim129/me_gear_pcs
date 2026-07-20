@@ -60,7 +60,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
 
         <Link href={`/products/${product._id}`}>
-          <h3 className="font-heading font-semibold text-slate-gray text-sm md:text-base line-clamp-2 hover:text-rust-copper transition-colors">
+          <h3 className="font-heading font-semibold text-slate-900 dark:text-zinc-100 text-sm md:text-base line-clamp-2 hover:text-rust-copper transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -90,7 +90,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Price */}
         <div className="flex items-center gap-2 mt-3">
-          <span className="font-heading font-bold text-slate-gray text-lg">
+          <span className="font-heading font-bold text-slate-900 dark:text-zinc-100 text-lg">
             ৳{product.price.toLocaleString()}
           </span>
           {product.originalPrice && product.originalPrice > product.price && (

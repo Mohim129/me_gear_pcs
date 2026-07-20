@@ -118,7 +118,7 @@ export default function OrderConfirmationPage({
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600 mx-auto mb-4">
           <ShieldAlert className="h-8 w-8" />
         </div>
-        <h2 className="font-heading text-2xl font-bold text-slate-gray mb-2">
+        <h2 className="font-heading text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-2">
           Order Not Found
         </h2>
         <p className="text-gray-500 text-sm mb-6">
@@ -149,7 +149,7 @@ export default function OrderConfirmationPage({
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mx-auto">
           <CheckCircle className="h-9 w-9" />
         </div>
-        <h1 className="font-heading text-2xl sm:text-3xl font-bold text-slate-gray">
+        <h1 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-zinc-100">
           Order Placed Successfully!
         </h1>
         <p className="text-sm text-gray-500">
@@ -164,7 +164,7 @@ export default function OrderConfirmationPage({
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               Order ID
             </p>
-            <p className="font-heading font-bold text-slate-gray dark:text-zinc-200 text-sm">
+            <p className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-sm">
               #{order._id}
             </p>
           </div>
@@ -173,7 +173,7 @@ export default function OrderConfirmationPage({
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                 Date
               </p>
-              <p className="text-sm font-medium text-slate-gray dark:text-zinc-300">
+              <p className="text-sm font-medium text-slate-900 dark:text-zinc-300">
                 {new Date(order.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -197,7 +197,7 @@ export default function OrderConfirmationPage({
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
               Shipping Address
             </p>
-            <p className="text-sm text-slate-gray dark:text-zinc-300 font-medium">
+            <p className="text-sm text-slate-900 dark:text-zinc-300 font-medium">
               {order.shippingAddress.fullName}
             </p>
             <p className="text-xs text-gray-500">
@@ -216,7 +216,7 @@ export default function OrderConfirmationPage({
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
               Payment Method
             </p>
-            <p className="text-sm text-slate-gray dark:text-zinc-300 font-medium">
+            <p className="text-sm text-slate-900 dark:text-zinc-300 font-medium">
               {order.paymentMethod}
             </p>
           </div>
@@ -225,7 +225,7 @@ export default function OrderConfirmationPage({
 
       {/* Order Items */}
       <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-6 space-y-4">
-        <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 flex items-center gap-2">
+        <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 flex items-center gap-2">
           <Package className="h-5 w-5 text-rust-copper" />
           Order Items
         </h3>
@@ -239,7 +239,7 @@ export default function OrderConfirmationPage({
                     <Cpu className="h-4 w-4 text-purple-500 flex-shrink-0" />
                   )}
                   <div className="min-w-0">
-                    <p className="text-sm font-bold text-slate-gray dark:text-zinc-200 truncate">
+                    <p className="text-sm font-bold text-slate-900 dark:text-zinc-200 truncate">
                       {item.name}
                     </p>
                     <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
@@ -277,7 +277,7 @@ export default function OrderConfirmationPage({
                             <span className="block font-bold text-[10px] text-gray-400 uppercase tracking-wider">
                               {comp.slot}
                             </span>
-                            <span className="block font-medium text-slate-gray dark:text-zinc-300 truncate max-w-[160px]">
+                            <span className="block font-medium text-slate-900 dark:text-zinc-300 truncate max-w-[160px]">
                               {comp.name}
                             </span>
                           </div>

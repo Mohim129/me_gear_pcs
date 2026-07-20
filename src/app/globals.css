@@ -36,17 +36,23 @@ body {
   background-image: linear-gradient(to right, #121214, #121214), linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #00ff7f, #ff007f);
 }
 
-/* Global input text legibility override */
-input, select, textarea {
+/* Global input, select, textarea legibility override */
+input, select, textarea, select option, select optgroup {
   color: #0f172a !important; /* slate-900 */
+  background-color: #ffffff !important; /* white */
+  border-color: #d1d5db !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  input, select, textarea {
+  input, select, textarea, select option, select optgroup {
     color: #f4f4f5 !important; /* zinc-100 */
+    background-color: #18181b !important; /* zinc-900 */
+    border-color: #3f3f46 !important;
   }
 }
 
-.dark input, .dark select, .dark textarea {
-  color: #f4f4f5 !important; /* zinc-105 */
+.dark input, .dark select, .dark textarea, .dark select option, .dark select optgroup {
+  color: #f4f4f5 !important; /* zinc-100 */
+  background-color: #18181b !important; /* zinc-900 */
+  border-color: #3f3f46 !important;
 }

@@ -53,7 +53,7 @@ export default function CategoriesGrid({ categories }: { categories: Category[] 
     return (
       <section className="py-16 px-4">
         <div className="mx-auto max-w-7xl text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-gray mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-4">
             Shop by Category
           </h2>
           <div className="mt-12 flex flex-col items-center gap-4">
@@ -70,7 +70,7 @@ export default function CategoriesGrid({ categories }: { categories: Category[] 
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-gray mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-3">
             Shop by Category
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto">
@@ -91,10 +91,10 @@ export default function CategoriesGrid({ categories }: { categories: Category[] 
                     : ""
                 }`}
               >
-                <div className={`mb-3 flex items-center justify-center rounded-xl bg-warm-cream p-3 text-slate-gray transition-colors group-hover:bg-rust-copper/10 group-hover:text-rust-copper ${isFeatured ? "p-4 mb-4" : ""}`}>
+                <div className={`mb-3 flex items-center justify-center rounded-xl bg-warm-cream p-3 text-slate-900 dark:text-zinc-100 transition-colors group-hover:bg-rust-copper/10 group-hover:text-rust-copper ${isFeatured ? "p-4 mb-4" : ""}`}>
                   {iconMap[cat.slug] || <Box className="h-7 w-7" />}
                 </div>
-                <span className={`font-heading font-semibold text-slate-gray group-hover:text-rust-copper transition-colors ${isFeatured ? "text-lg md:text-xl" : "text-sm md:text-base"}`}>
+                <span className={`font-heading font-semibold text-slate-900 dark:text-zinc-100 group-hover:text-rust-copper transition-colors ${isFeatured ? "text-lg md:text-xl" : "text-sm md:text-base"}`}>
                   {cat.name}
                 </span>
               </Link>

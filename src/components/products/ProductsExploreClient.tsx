@@ -178,7 +178,7 @@ export default function ProductsExploreClient() {
       {/* Header and Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200/80 pb-6">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-slate-gray">
+          <h1 className="font-heading text-3xl font-bold text-slate-900 dark:text-zinc-100">
             Explore Hardware
           </h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -195,7 +195,7 @@ export default function ProductsExploreClient() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search components..."
-              className="w-full rounded-xl border border-gray-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+              className="w-full rounded-xl border border-gray-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
             />
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           </div>
@@ -204,7 +204,7 @@ export default function ProductsExploreClient() {
           <select
             value={sort}
             onChange={(e) => updateQuery({ sort: e.target.value })}
-            className="rounded-xl border border-gray-300 bg-white py-2.5 px-3 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300 cursor-pointer"
+            className="rounded-xl border border-gray-300 bg-white py-2.5 px-3 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300 cursor-pointer"
           >
             <option value="newest">Newest</option>
             <option value="price-low">Price: Low to High</option>
@@ -215,7 +215,7 @@ export default function ProductsExploreClient() {
           {/* Mobile Filter Trigger Button */}
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="lg:hidden flex items-center justify-center p-2.5 rounded-xl border border-gray-300 bg-white text-slate-gray hover:bg-gray-50 active:scale-[0.98]"
+            className="lg:hidden flex items-center justify-center p-2.5 rounded-xl border border-gray-300 bg-white text-slate-900 dark:text-zinc-100 hover:bg-gray-50 active:scale-[0.98]"
             title="Filter options"
           >
             <SlidersHorizontal className="h-5 w-5" />
@@ -229,7 +229,7 @@ export default function ProductsExploreClient() {
         {/* SIDEBAR FILTERS (Desktop) */}
         <aside className="hidden lg:block w-64 flex-shrink-0 bg-white border border-gray-200/80 rounded-2xl p-6 space-y-6">
           <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-            <h3 className="font-heading font-bold text-slate-gray flex items-center gap-2">
+            <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
               <Sliders className="h-4 w-4 text-rust-copper" />
               Filters
             </h3>
@@ -244,12 +244,12 @@ export default function ProductsExploreClient() {
 
           {/* Categories */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
               Categories
             </h4>
             <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
               {categories?.map((cat) => (
-                <label key={cat._id} className="flex items-center gap-2 text-sm text-gray-600 hover:text-slate-gray cursor-pointer select-none">
+                <label key={cat._id} className="flex items-center gap-2 text-sm text-gray-600 hover:text-slate-900 dark:text-zinc-100 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={selectedCategories.includes(cat.slug)}
@@ -264,7 +264,7 @@ export default function ProductsExploreClient() {
 
           {/* Price Range */}
           <div className="space-y-3 border-t border-gray-100 pt-5">
-            <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
               Price Range (BDT)
             </h4>
             <form onSubmit={handlePriceApply} className="space-y-2.5">
@@ -274,7 +274,7 @@ export default function ProductsExploreClient() {
                   placeholder="Min"
                   value={minPriceInput}
                   onChange={(e) => setMinPriceInput(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
                 />
                 <span className="text-gray-400 text-xs">to</span>
                 <input
@@ -282,7 +282,7 @@ export default function ProductsExploreClient() {
                   placeholder="Max"
                   value={maxPriceInput}
                   onChange={(e) => setMaxPriceInput(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
                 />
               </div>
               <button
@@ -296,7 +296,7 @@ export default function ProductsExploreClient() {
 
           {/* Rating */}
           <div className="space-y-3 border-t border-gray-100 pt-5">
-            <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
               Minimum Rating
             </h4>
             <div className="space-y-2.5">
@@ -306,7 +306,7 @@ export default function ProductsExploreClient() {
                 { label: "2★ & up", val: "2" },
                 { label: "Any Rating", val: "0" },
               ].map((r) => (
-                <label key={r.val} className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-slate-gray cursor-pointer select-none">
+                <label key={r.val} className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-slate-900 dark:text-zinc-100 cursor-pointer select-none">
                   <input
                     type="radio"
                     name="rating"
@@ -335,7 +335,7 @@ export default function ProductsExploreClient() {
             {/* Drawer */}
             <div className="relative w-80 max-w-[85vw] bg-white h-full p-6 flex flex-col gap-6 shadow-2xl overflow-y-auto animate-slide-in-right z-10">
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                <h3 className="font-heading font-bold text-slate-gray flex items-center gap-2">
+                <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
                   <Sliders className="h-4 w-4 text-rust-copper" />
                   Filters
                 </h3>
@@ -353,12 +353,12 @@ export default function ProductsExploreClient() {
 
               {/* Categories */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                   Categories
                 </h4>
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                   {categories?.map((cat) => (
-                    <label key={cat._id} className="flex items-center gap-2 text-sm text-gray-600 hover:text-slate-gray cursor-pointer select-none">
+                    <label key={cat._id} className="flex items-center gap-2 text-sm text-gray-600 hover:text-slate-900 dark:text-zinc-100 cursor-pointer select-none">
                       <input
                         type="checkbox"
                         checked={selectedCategories.includes(cat.slug)}
@@ -373,7 +373,7 @@ export default function ProductsExploreClient() {
 
               {/* Price Range */}
               <div className="space-y-3 border-t border-gray-100 pt-5">
-                <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                   Price Range (BDT)
                 </h4>
                 <form 
@@ -389,7 +389,7 @@ export default function ProductsExploreClient() {
                       placeholder="Min"
                       value={minPriceInput}
                       onChange={(e) => setMinPriceInput(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
                     />
                     <span className="text-gray-400 text-xs">to</span>
                     <input
@@ -397,7 +397,7 @@ export default function ProductsExploreClient() {
                       placeholder="Max"
                       value={maxPriceInput}
                       onChange={(e) => setMaxPriceInput(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/30 transition-all"
                     />
                   </div>
                   <button
@@ -411,7 +411,7 @@ export default function ProductsExploreClient() {
 
               {/* Rating */}
               <div className="space-y-3 border-t border-gray-100 pt-5">
-                <h4 className="text-xs font-bold text-slate-gray uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                   Minimum Rating
                 </h4>
                 <div className="space-y-2.5">
@@ -423,7 +423,7 @@ export default function ProductsExploreClient() {
                   ].map((r) => (
                     <label 
                       key={r.val} 
-                      className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-slate-gray cursor-pointer select-none"
+                      className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-slate-900 dark:text-zinc-100 cursor-pointer select-none"
                       onClick={() => setIsFilterOpen(false)}
                     >
                       <input
@@ -459,7 +459,7 @@ export default function ProductsExploreClient() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-warm-cream text-rust-copper mb-4">
                 <FilterX className="h-8 w-8" />
               </div>
-              <h3 className="font-heading text-lg font-bold text-slate-gray mb-1">
+              <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-zinc-100 mb-1">
                 No matching hardware found
               </h3>
               <p className="text-sm text-gray-500 max-w-sm mb-6">
@@ -489,7 +489,7 @@ export default function ProductsExploreClient() {
                   <button
                     onClick={() => updateQuery({ page: (page - 1).toString() })}
                     disabled={page <= 1}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-gray hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 dark:text-zinc-100 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors"
                     aria-label="Previous Page"
                   >
                     <ChevronLeft className="h-4.5 w-4.5" />
@@ -505,7 +505,7 @@ export default function ProductsExploreClient() {
                         className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold transition-colors ${
                           pageNumber === page
                             ? "bg-rust-copper text-white shadow-md shadow-rust-copper/20"
-                            : "border border-gray-200 bg-white text-slate-gray hover:bg-gray-50"
+                            : "border border-gray-200 bg-white text-slate-900 dark:text-zinc-100 hover:bg-gray-50"
                         }`}
                       >
                         {pageNumber}
@@ -517,7 +517,7 @@ export default function ProductsExploreClient() {
                   <button
                     onClick={() => updateQuery({ page: (page + 1).toString() })}
                     disabled={page >= productData.totalPages}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-gray hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 dark:text-zinc-100 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors"
                     aria-label="Next Page"
                   >
                     <ChevronRight className="h-4.5 w-4.5" />

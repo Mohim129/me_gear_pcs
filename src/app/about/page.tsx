@@ -37,7 +37,7 @@ export default function AboutPage() {
 
       {/* Mission Section */}
       <div className="text-center mb-16">
-        <h2 className="text-3xl font-bold font-heading text-slate-gray mb-3">
+        <h2 className="text-3xl font-bold font-heading text-slate-900 dark:text-zinc-100 mb-3">
           The Vision
         </h2>
         <div className="w-20 h-1 bg-rust-copper mx-auto mb-6 rounded-full" />
@@ -68,7 +68,7 @@ export default function AboutPage() {
             <div className="w-12 h-12 bg-rust-copper/10 rounded-full flex items-center justify-center mb-3">
               <Factory className="h-6 w-6 text-rust-copper" />
             </div>
-            <h4 className="font-bold text-slate-gray">Precision Assembly</h4>
+            <h4 className="font-bold text-slate-900 dark:text-zinc-100">Precision Assembly</h4>
             <p className="text-xs text-gray-500 mt-1">
               Every cable routed, every screw torqued to spec.
             </p>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             <div className="w-12 h-12 bg-rust-copper/10 rounded-full flex items-center justify-center mb-3">
               <Award className="h-6 w-6 text-rust-copper" />
             </div>
-            <h4 className="font-bold text-slate-gray">Heritage & Quality</h4>
+            <h4 className="font-bold text-slate-900 dark:text-zinc-100">Heritage & Quality</h4>
             <p className="text-xs text-gray-500 mt-1">
               Only genuine, warrantied components from authorized distributors.
             </p>
@@ -88,7 +88,7 @@ export default function AboutPage() {
             <div className="w-12 h-12 bg-rust-copper/10 rounded-full flex items-center justify-center mb-3">
               <Zap className="h-6 w-6 text-rust-copper" />
             </div>
-            <h4 className="font-bold text-slate-gray">Modern Craftsmanship</h4>
+            <h4 className="font-bold text-slate-900 dark:text-zinc-100">Modern Craftsmanship</h4>
             <p className="text-xs text-gray-500 mt-1">
               Custom water cooling, RGB integration, and silent tuning.
             </p>
@@ -98,7 +98,7 @@ export default function AboutPage() {
             <div className="w-12 h-12 bg-rust-copper/10 rounded-full flex items-center justify-center mb-3">
               <Users className="h-6 w-6 text-rust-copper" />
             </div>
-            <h4 className="font-bold text-slate-gray">Community First</h4>
+            <h4 className="font-bold text-slate-900 dark:text-zinc-100">Community First</h4>
             <p className="text-xs text-gray-500 mt-1">
               Free build consultations and 24/7 local support in Dhaka.
             </p>

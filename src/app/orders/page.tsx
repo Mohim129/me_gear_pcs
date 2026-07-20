@@ -116,7 +116,7 @@ export default function OrdersPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <ShoppingBag className="h-7 w-7 text-rust-copper" />
           ORDER HISTORY
         </h1>
@@ -130,7 +130,7 @@ export default function OrdersPage() {
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mx-auto mb-6">
             <Package className="h-10 w-10 text-gray-300" />
           </div>
-          <h2 className="font-heading text-2xl font-bold text-slate-gray mb-2">
+          <h2 className="font-heading text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-2">
             No Orders Yet
           </h2>
           <p className="text-sm text-gray-500 mb-8">
@@ -163,7 +163,7 @@ export default function OrdersPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex-grow space-y-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-slate-gray">
+                      <span className="text-sm font-bold text-slate-900 dark:text-zinc-100">
                         Order #{order._id.slice(-8).toUpperCase()}
                       </span>
                       <span

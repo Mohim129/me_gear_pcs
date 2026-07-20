@@ -77,7 +77,7 @@ export default function TestimonialsCarousel() {
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-warm-cream">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-gray mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-3">
             What Our Customers Say
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto">
@@ -129,7 +129,7 @@ export default function TestimonialsCarousel() {
                     </div>
 
                     {/* Comment */}
-                    <blockquote className="text-slate-gray font-medium text-base md:text-lg leading-relaxed mb-6 italic">
+                    <blockquote className="text-slate-900 dark:text-zinc-100 font-medium text-base md:text-lg leading-relaxed mb-6 italic">
                       "{review.comment}"
                     </blockquote>
 
@@ -147,7 +147,7 @@ export default function TestimonialsCarousel() {
                         </div>
                       )}
                       <div className="text-left">
-                        <cite className="font-heading font-semibold text-slate-gray not-italic text-sm md:text-base block">
+                        <cite className="font-heading font-semibold text-slate-900 dark:text-zinc-100 not-italic text-sm md:text-base block">
                           {review.userName}
                         </cite>
                         {review.productName && (
@@ -167,14 +167,14 @@ export default function TestimonialsCarousel() {
               <>
                 <button
                   onClick={prev}
-                  className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-gray shadow-md transition-all hover:scale-105"
+                  className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-900 dark:text-zinc-100 shadow-md transition-all hover:scale-105"
                   aria-label="Previous review"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
                   onClick={next}
-                  className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-gray shadow-md transition-all hover:scale-105"
+                  className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-900 dark:text-zinc-100 shadow-md transition-all hover:scale-105"
                   aria-label="Next review"
                 >
                   <ChevronRight className="h-5 w-5" />

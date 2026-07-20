@@ -42,7 +42,7 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen bg-warm-cream flex flex-col items-center justify-center">
         <Loader2 className="h-10 w-10 text-rust-copper animate-spin" />
-        <p className="text-sm font-medium text-slate-gray mt-4">Verifying administrator credentials...</p>
+        <p className="text-sm font-medium text-slate-900 dark:text-zinc-100 mt-4">Verifying administrator credentials...</p>
       </div>
     );
   }
@@ -51,13 +51,13 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen bg-warm-cream flex flex-col items-center justify-center p-6">
         <ShieldAlert className="h-14 w-14 text-red-500 mb-4 animate-bounce" />
-        <h1 className="text-xl font-bold text-slate-gray font-heading">Access Restricted</h1>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-zinc-100 font-heading">Access Restricted</h1>
         <p className="text-sm text-gray-500 text-center max-w-sm mt-1">
           You do not have the required permissions to view the administration dashboard.
         </p>
         <Link
           href="/"
-          className="mt-6 bg-slate-gray hover:bg-slate-gray/90 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all"
+          className="mt-6 bg-slate-900 hover:bg-slate-900/90 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all"
         >
           Return to Home
         </Link>
@@ -77,7 +77,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-warm-cream flex flex-col sm:flex-row">
       {/* Sidebar - Desktop */}
-      <aside className="hidden sm:flex flex-col w-64 bg-slate-gray text-white border-r border-gray-700/30 flex-shrink-0">
+      <aside className="hidden sm:flex flex-col w-64 bg-slate-900 text-white border-r border-gray-700/30 flex-shrink-0">
         <div className="p-6 border-b border-gray-700/50 flex items-center justify-between">
           <Link href="/admin" className="flex items-center gap-2">
             <span className="font-heading font-bold text-lg text-white leading-none tracking-wide">
@@ -98,7 +98,7 @@ export default function AdminLayout({
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                   isActive
                     ? "bg-rust-copper text-white shadow-md shadow-rust-copper/10"
-                    : "text-gray-300 hover:bg-zinc-800 hover:text-white"
+                    : "text-zinc-300 hover:bg-zinc-800 hover:text-white font-bold"
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -123,7 +123,7 @@ export default function AdminLayout({
       </aside>
 
       {/* Mobile Header Bar */}
-      <header className="sm:hidden bg-slate-gray text-white flex items-center justify-between px-6 py-4 border-b border-gray-700/30 z-30">
+      <header className="sm:hidden bg-slate-900 text-white flex items-center justify-between px-6 py-4 border-b border-gray-700/30 z-30">
         <span className="font-heading font-bold text-base leading-none">
           MEG <span className="text-rust-copper">ADMIN</span>
         </span>
@@ -144,7 +144,7 @@ export default function AdminLayout({
       />
 
       <nav
-        className={`fixed top-0 left-0 bottom-0 z-50 w-64 bg-slate-gray text-white transform transition-transform duration-300 ease-in-out sm:hidden flex flex-col ${
+        className={`fixed top-0 left-0 bottom-0 z-50 w-64 bg-slate-900 text-white transform transition-transform duration-300 ease-in-out sm:hidden flex flex-col ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -170,7 +170,7 @@ export default function AdminLayout({
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                   isActive
                     ? "bg-rust-copper text-white"
-                    : "text-gray-300 hover:bg-zinc-800 hover:text-white"
+                    : "text-zinc-300 hover:bg-zinc-800 hover:text-white font-bold"
                 }`}
               >
                 <Icon className="h-5 w-5" />

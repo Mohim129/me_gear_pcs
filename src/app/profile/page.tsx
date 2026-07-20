@@ -297,7 +297,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-gray dark:text-zinc-100">
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-zinc-100">
                     {session?.user?.name || "User"}
                   </h2>
                   <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">
@@ -318,7 +318,7 @@ export default function ProfilePage() {
 
             {/* Personal Details */}
             <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
-              <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 text-lg">
+              <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
                 Personal Details
               </h3>
               <div className="space-y-4">
@@ -330,7 +330,7 @@ export default function ProfilePage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -356,7 +356,7 @@ export default function ProfilePage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. 01712345678"
-                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                   />
                 </div>
                 <button
@@ -377,7 +377,7 @@ export default function ProfilePage() {
             {/* Change Password */}
             {hasPassword && (
               <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
-                <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 text-lg">
+                <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
                   Change Password
                 </h3>
                 <div className="space-y-4">
@@ -390,7 +390,7 @@ export default function ProfilePage() {
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
                       placeholder="Enter current password"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -402,7 +402,7 @@ export default function ProfilePage() {
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="At least 6 characters"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -414,7 +414,7 @@ export default function ProfilePage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Re-enter new password"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                     />
                   </div>
                   <button
@@ -463,7 +463,7 @@ export default function ProfilePage() {
           return (
             <div className="text-center py-12">
               <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-slate-gray">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100">
                 No orders yet
               </h3>
               <p className="text-sm text-gray-500 mt-1">
@@ -491,7 +491,7 @@ export default function ProfilePage() {
                 >
                   <div className="flex-grow space-y-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-slate-gray">
+                      <span className="text-sm font-bold text-slate-900 dark:text-zinc-100">
                         Order #{order._id.slice(-8).toUpperCase()}
                       </span>
                       <span
@@ -564,7 +564,7 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <User className="h-7 w-7 text-rust-copper" />
           MY ACCOUNT
         </h1>
@@ -592,7 +592,7 @@ export default function ProfilePage() {
                 )}
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-sm text-slate-gray dark:text-zinc-100 truncate">
+                <p className="font-bold text-sm text-slate-900 dark:text-zinc-100 truncate">
                   {session?.user?.name}
                 </p>
                 <p className="text-xs text-gray-400 truncate">

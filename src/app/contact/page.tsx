@@ -52,7 +52,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <MessageSquare className="h-7 w-7 text-rust-copper" />
           GET IN TOUCH
         </h1>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="e.g. Rahim Ahmed"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
 
@@ -93,7 +93,7 @@ export default function ContactPage() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="e.g. rahim@example.com"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 value={form.subject}
                 onChange={handleChange}
                 placeholder="e.g. Build consultation"
-                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
               />
             </div>
 
@@ -122,7 +122,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 rows={5}
                 placeholder="Tell us how we can help..."
-                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all resize-none"
+                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all resize-none"
               />
             </div>
 
@@ -144,7 +144,7 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm space-y-5">
-            <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 text-lg">
+            <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
               Contact Information
             </h3>
 
@@ -154,7 +154,7 @@ export default function ContactPage() {
                   <MapPin className="h-5 w-5 text-rust-copper" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-gray dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-zinc-200">
                     Our Office
                   </p>
                   <p className="text-sm text-gray-500 dark:text-zinc-400">
@@ -170,7 +170,7 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-rust-copper" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-gray dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-zinc-200">
                     Phone
                   </p>
                   <p className="text-sm text-gray-500 dark:text-zinc-400">
@@ -184,7 +184,7 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-rust-copper" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-gray dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-zinc-200">
                     Email
                   </p>
                   <p className="text-sm text-gray-500 dark:text-zinc-400">
@@ -198,7 +198,7 @@ export default function ContactPage() {
                   <Clock className="h-5 w-5 text-rust-copper" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-gray dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-zinc-200">
                     Support Hours
                   </p>
                   <p className="text-sm text-gray-500 dark:text-zinc-400">

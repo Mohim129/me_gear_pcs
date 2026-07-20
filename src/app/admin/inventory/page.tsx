@@ -490,7 +490,7 @@ export default function AdminInventory() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold font-heading text-slate-gray dark:text-zinc-150 leading-none">Catalog Inventory</h1>
+          <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-150 leading-none">Catalog Inventory</h1>
           <p className="text-xs text-gray-500 mt-1">Manage catalog listings, search, delete, update specs, and upload item images.</p>
         </div>
         <button
@@ -521,7 +521,7 @@ export default function AdminInventory() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               activeCategory === "All"
                 ? "bg-rust-copper text-white"
-                : "bg-gray-50 hover:bg-gray-100 text-slate-gray dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
+                : "bg-gray-50 hover:bg-gray-100 text-slate-900 dark:text-zinc-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
             }`}
           >
             All Categories
@@ -533,7 +533,7 @@ export default function AdminInventory() {
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                 activeCategory === cat.slug
                   ? "bg-rust-copper text-white"
-                  : "bg-gray-50 hover:bg-gray-100 text-slate-gray dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
+                  : "bg-gray-50 hover:bg-gray-100 text-slate-900 dark:text-zinc-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
               }`}
             >
               {cat.name}
@@ -579,18 +579,18 @@ export default function AdminInventory() {
                           <img src={product.image} alt={product.name} className="object-cover w-full h-full" />
                         </div>
                         <div className="min-w-0">
-                          <p className="font-semibold text-slate-gray dark:text-zinc-200 truncate max-w-[280px]">{product.name}</p>
+                          <p className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 truncate max-w-[280px]">{product.name}</p>
                           <span className="text-[10px] text-gray-400 font-mono">SKU: {product.sku || "N/A"}</span>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-medium text-slate-gray dark:text-zinc-350">{product.brand}</td>
+                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-zinc-100 dark:text-zinc-350">{product.brand}</td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-slate-gray/10 text-slate-gray border border-slate-gray/15">
+                      <span className="inline-flex px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-slate-gray/10 text-slate-900 dark:text-zinc-100 border border-slate-gray/15">
                         {product.category?.name}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-slate-gray dark:text-zinc-250">
+                    <td className="px-6 py-4 font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-250">
                       ৳{product.price.toLocaleString()}
                     </td>
                     <td className="px-6 py-4">
@@ -644,7 +644,7 @@ export default function AdminInventory() {
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={() => setIsDeletingId(null)}
-                className="px-4 py-2 border border-gray-300 rounded-xl text-xs font-bold text-slate-gray hover:bg-gray-50 cursor-pointer"
+                className="px-4 py-2 border border-gray-300 rounded-xl text-xs font-bold text-slate-900 dark:text-zinc-100 hover:bg-gray-50 cursor-pointer"
               >
                 Cancel
               </button>
@@ -675,7 +675,7 @@ export default function AdminInventory() {
             </div>
 
             {/* Scrollable Form Body */}
-            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6 text-xs text-slate-gray dark:text-zinc-300">
+            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6 text-xs text-slate-900 dark:text-zinc-100 dark:text-zinc-300">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left Column: General Fields */}
                 <div className="space-y-4">
@@ -907,7 +907,7 @@ export default function AdminInventory() {
                   {/* Dynamic Category Specifications Section */}
                   {formCategory && (
                     <div className="bg-gray-50/50 dark:bg-zinc-950/15 border border-gray-200 dark:border-zinc-800 rounded-xl p-4 space-y-4">
-                      <h4 className="font-heading font-bold text-slate-gray dark:text-zinc-200 flex items-center gap-1.5 border-b border-gray-200 pb-1.5 uppercase tracking-wider text-[10px]">
+                      <h4 className="font-heading font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 flex items-center gap-1.5 border-b border-gray-200 pb-1.5 uppercase tracking-wider text-[10px]">
                         <FileText className="h-4 w-4 text-rust-copper" />
                         Category Specifications
                       </h4>
@@ -922,7 +922,7 @@ export default function AdminInventory() {
                 <button
                   type="button"
                   onClick={() => setIsFormOpen(false)}
-                  className="px-5 py-2.5 border border-gray-300 rounded-xl text-slate-gray font-bold hover:bg-gray-50 mr-3 cursor-pointer"
+                  className="px-5 py-2.5 border border-gray-300 rounded-xl text-slate-900 dark:text-zinc-100 font-bold hover:bg-gray-50 mr-3 cursor-pointer"
                 >
                   Cancel
                 </button>

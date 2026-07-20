@@ -72,7 +72,7 @@ export default function AdminCustomers() {
     return (
       <div className="h-[60vh] flex flex-col items-center justify-center">
         <Loader2 className="h-10 w-10 text-rust-copper animate-spin" />
-        <p className="text-sm font-medium text-slate-gray mt-4">Loading customer registry...</p>
+        <p className="text-sm font-medium text-slate-900 dark:text-zinc-100 mt-4">Loading customer registry...</p>
       </div>
     );
   }
@@ -115,7 +115,7 @@ export default function AdminCustomers() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold font-heading text-slate-gray dark:text-zinc-150 leading-none">Customers Directory</h1>
+        <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-150 leading-none">Customers Directory</h1>
         <p className="text-xs text-gray-500 mt-1">Review registered shopper profiles, contact logs, and purchase records.</p>
       </div>
 
@@ -127,7 +127,7 @@ export default function AdminCustomers() {
             <div key={idx} className="bg-white dark:bg-zinc-900 border border-gray-250/70 dark:border-zinc-800 rounded-2xl p-6 shadow-sm flex items-center justify-between">
               <div className="space-y-2">
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{card.title}</span>
-                <h3 className="text-2xl font-black font-heading text-slate-gray dark:text-zinc-100">{card.value}</h3>
+                <h3 className="text-2xl font-black font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-100">{card.value}</h3>
                 <p className="text-xs text-gray-500 leading-none">{card.description}</p>
               </div>
               <div className={`p-3.5 rounded-2xl flex-shrink-0 ${card.color}`}>
@@ -162,7 +162,7 @@ export default function AdminCustomers() {
               ) : (
                 customers.map((c) => (
                   <tr key={c._id} className="hover:bg-gray-50/50 dark:hover:bg-zinc-900/30">
-                    <td className="px-6 py-4 font-semibold text-slate-gray dark:text-zinc-200">
+                    <td className="px-6 py-4 font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-200">
                       {c.name}
                     </td>
                     <td className="px-6 py-4 text-gray-500 font-medium">
@@ -178,7 +178,7 @@ export default function AdminCustomers() {
                         year: "numeric",
                       })}
                     </td>
-                    <td className="px-6 py-4 font-bold text-slate-gray dark:text-zinc-300">
+                    <td className="px-6 py-4 font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-300">
                       {c.totalOrders} order(s)
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -222,7 +222,7 @@ export default function AdminCustomers() {
             {/* Modal Scrollable Body */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4 text-sm">
               {/* Profile card summary */}
-              <div className="bg-gray-50 dark:bg-zinc-950/20 border border-gray-200/50 dark:border-zinc-800/80 p-4 rounded-xl space-y-2 text-xs text-slate-gray dark:text-zinc-350">
+              <div className="bg-gray-50 dark:bg-zinc-950/20 border border-gray-200/50 dark:border-zinc-800/80 p-4 rounded-xl space-y-2 text-xs text-slate-900 dark:text-zinc-100 dark:text-zinc-350">
                 <div className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-gray-400" /> {selectedCustomer.email}</div>
                 {selectedCustomer.phone && <div className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-gray-400" /> {selectedCustomer.phone}</div>}
               </div>
@@ -247,7 +247,7 @@ export default function AdminCustomers() {
                         className="p-4 border border-gray-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 flex justify-between items-center shadow-xs"
                       >
                         <div className="space-y-1">
-                          <p className="font-mono text-xs font-bold text-slate-gray dark:text-zinc-200">
+                          <p className="font-mono text-xs font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200">
                             #{order._id.substring(order._id.length - 8).toUpperCase()}
                           </p>
                           <span className="text-[10px] text-gray-400 flex items-center gap-1">
@@ -256,8 +256,8 @@ export default function AdminCustomers() {
                           </span>
                         </div>
                         <div className="text-right space-y-1.5">
-                          <p className="font-bold text-slate-gray dark:text-zinc-200">৳{order.totalPrice.toLocaleString()}</p>
-                          <span className="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold border bg-gray-50 text-slate-gray dark:bg-zinc-800 dark:text-zinc-300">
+                          <p className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200">৳{order.totalPrice.toLocaleString()}</p>
+                          <span className="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold border bg-gray-50 text-slate-900 dark:text-zinc-100 dark:bg-zinc-800 dark:text-zinc-300">
                             {order.status}
                           </span>
                         </div>

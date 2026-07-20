@@ -54,7 +54,7 @@ export default function NewsletterFaq() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rust-copper/10 text-rust-copper mb-4">
               <Mail className="h-6 w-6" />
             </div>
-            <h3 className="font-heading text-2xl md:text-3xl font-bold text-slate-gray">
+            <h3 className="font-heading text-2xl md:text-3xl font-bold text-slate-900 dark:text-zinc-100">
               Stay Updated
             </h3>
             <p className="text-gray-500 text-sm md:text-base leading-relaxed">
@@ -69,7 +69,7 @@ export default function NewsletterFaq() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3.5 pl-4 pr-12 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3.5 pl-4 pr-12 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
               </div>
               <button
@@ -83,7 +83,7 @@ export default function NewsletterFaq() {
 
           {/* Right Column: FAQ Accordion */}
           <div className="space-y-6">
-            <h3 className="font-heading text-2xl md:text-3xl font-bold text-slate-gray text-center lg:text-left">
+            <h3 className="font-heading text-2xl md:text-3xl font-bold text-slate-900 dark:text-zinc-100 text-center lg:text-left">
               Frequently Asked Questions
             </h3>
             
@@ -97,7 +97,7 @@ export default function NewsletterFaq() {
                   >
                     <button
                       onClick={() => toggleFaq(index)}
-                      className="w-full flex items-center justify-between p-5 text-left font-heading font-semibold text-slate-gray hover:text-rust-copper transition-colors focus:outline-none"
+                      className="w-full flex items-center justify-between p-5 text-left font-heading font-semibold text-slate-900 dark:text-zinc-100 hover:text-rust-copper transition-colors focus:outline-none"
                     >
                       <span className="text-sm md:text-base">{faq.question}</span>
                       {isOpen ? (

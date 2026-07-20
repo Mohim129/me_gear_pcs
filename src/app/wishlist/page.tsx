@@ -111,7 +111,7 @@ export default function WishlistPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center gap-2 mb-8">
           <Heart className="h-7 w-7 text-rust-copper" />
-          <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray">
+          <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100">
             MY WISHLIST
           </h1>
         </div>
@@ -134,7 +134,7 @@ export default function WishlistPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <Heart className="h-7 w-7 text-rust-copper" />
           MY WISHLIST
         </h1>
@@ -148,7 +148,7 @@ export default function WishlistPage() {
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mx-auto mb-6">
             <Heart className="h-10 w-10 text-gray-300" />
           </div>
-          <h2 className="font-heading text-2xl font-bold text-slate-gray mb-2">
+          <h2 className="font-heading text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-2">
             Your Wishlist is Empty
           </h2>
           <p className="text-sm text-gray-500 mb-8">
@@ -224,7 +224,7 @@ export default function WishlistPage() {
                   )}
 
                   <Link href={`/products/${product._id}`}>
-                    <h3 className="font-heading font-semibold text-slate-gray text-sm md:text-base line-clamp-2 hover:text-rust-copper transition-colors">
+                    <h3 className="font-heading font-semibold text-slate-900 dark:text-zinc-100 text-sm md:text-base line-clamp-2 hover:text-rust-copper transition-colors">
                       {product.name}
                     </h3>
                   </Link>
@@ -250,7 +250,7 @@ export default function WishlistPage() {
 
                   {/* Price */}
                   <div className="flex items-center gap-2 mt-3">
-                    <span className="font-heading font-bold text-slate-gray text-lg">
+                    <span className="font-heading font-bold text-slate-900 dark:text-zinc-100 text-lg">
                       ৳{product.price.toLocaleString()}
                     </span>
                     {product.originalPrice &&

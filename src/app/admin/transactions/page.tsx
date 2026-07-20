@@ -49,7 +49,7 @@ export default function AdminTransactions() {
     return (
       <div className="h-[60vh] flex flex-col items-center justify-center">
         <Loader2 className="h-10 w-10 text-rust-copper animate-spin" />
-        <p className="text-sm font-medium text-slate-gray mt-4">Loading financial transactions...</p>
+        <p className="text-sm font-medium text-slate-900 dark:text-zinc-100 mt-4">Loading financial transactions...</p>
       </div>
     );
   }
@@ -132,7 +132,7 @@ export default function AdminTransactions() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold font-heading text-slate-gray dark:text-zinc-150 leading-none">Financial Ledger</h1>
+          <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-150 leading-none">Financial Ledger</h1>
           <p className="text-xs text-gray-500 mt-1">Review net store earnings, average checkout sizes, refund metrics, and list payments.</p>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function AdminTransactions() {
             <div key={idx} className="bg-white dark:bg-zinc-900 border border-gray-250/70 dark:border-zinc-800 rounded-2xl p-6 shadow-sm flex items-center justify-between">
               <div className="space-y-2">
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{card.title}</span>
-                <h3 className="text-2xl font-black font-heading text-slate-gray dark:text-zinc-100">{card.value}</h3>
+                <h3 className="text-2xl font-black font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-100">{card.value}</h3>
                 <p className="text-xs text-gray-500 leading-none">{card.description}</p>
               </div>
               <div className={`p-3.5 rounded-2xl flex-shrink-0 ${card.color}`}>
@@ -158,7 +158,7 @@ export default function AdminTransactions() {
 
       {/* Filters Bar */}
       <div className="bg-white dark:bg-zinc-900 border border-gray-250/70 dark:border-zinc-800 rounded-2xl p-4 shadow-sm flex flex-wrap gap-4 items-center justify-between">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-gray dark:text-zinc-350">
+        <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-350">
           <Filter className="h-4 w-4 text-rust-copper" />
           Filter Ledger
         </div>
@@ -167,7 +167,7 @@ export default function AdminTransactions() {
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
-            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
           >
             <option value="All">All Time</option>
             <option value="7days">Last 7 Days</option>
@@ -178,7 +178,7 @@ export default function AdminTransactions() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
           >
             <option value="All">All Types</option>
             <option value="Sale">Sale (Sale/Invoice)</option>
@@ -189,7 +189,7 @@ export default function AdminTransactions() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+            className="rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
           >
             <option value="All">All Statuses</option>
             <option value="Completed">Completed (Paid)</option>
@@ -226,12 +226,12 @@ export default function AdminTransactions() {
                   const isRefund = order.paymentStatus === "Refunded";
                   return (
                     <tr key={order._id} className="hover:bg-gray-50/50 dark:hover:bg-zinc-900/30">
-                      <td className="px-6 py-4 font-mono text-xs font-bold text-slate-gray dark:text-zinc-300">
+                      <td className="px-6 py-4 font-mono text-xs font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-300">
                         #{order._id.substring(order._id.length - 8).toUpperCase()}
                       </td>
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-semibold text-slate-gray dark:text-zinc-200 leading-none">{order.userName}</p>
+                          <p className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 leading-none">{order.userName}</p>
                           <span className="text-[10px] text-gray-400">{order.userEmail}</span>
                         </div>
                       </td>
@@ -242,7 +242,7 @@ export default function AdminTransactions() {
                           year: "numeric",
                         })}
                       </td>
-                      <td className="px-6 py-4 text-xs font-medium text-slate-gray dark:text-zinc-305">
+                      <td className="px-6 py-4 text-xs font-medium text-slate-900 dark:text-zinc-100 dark:text-zinc-305">
                         {order.paymentMethod || "Cash on Delivery"}
                       </td>
                       <td className="px-6 py-4">

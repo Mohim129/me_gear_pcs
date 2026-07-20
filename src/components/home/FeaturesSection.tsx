@@ -29,7 +29,7 @@ export default function FeaturesSection() {
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-gray mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-3">
             Why MEG PCs?
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto">
@@ -46,7 +46,7 @@ export default function FeaturesSection() {
               <div className="mb-4 flex items-center justify-center rounded-2xl bg-rust-copper/10 p-4 text-rust-copper transition-colors group-hover:bg-rust-copper group-hover:text-white">
                 {feature.icon}
               </div>
-              <h3 className="font-heading font-semibold text-lg text-slate-gray mb-2">
+              <h3 className="font-heading font-semibold text-lg text-slate-900 dark:text-zinc-100 mb-2">
                 {feature.title}
               </h3>
               <p className="text-gray-500 text-sm leading-relaxed">

@@ -55,7 +55,7 @@ export default function ProductPickerModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-zinc-800">
           <div>
-            <h3 className="text-xl font-bold font-heading text-slate-gray dark:text-zinc-100">
+            <h3 className="text-xl font-bold font-heading text-slate-900 dark:text-zinc-100">
               Select {categoryName}
             </h3>
             <p className="text-xs text-gray-500 mt-0.5">
@@ -78,7 +78,7 @@ export default function ProductPickerModal({
               placeholder={`Search ${categoryName}...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-gray-300/80 dark:border-zinc-700 bg-white dark:bg-zinc-850 py-2.5 pl-10 pr-4 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+              className="w-full rounded-xl border border-gray-300/80 dark:border-zinc-700 bg-white dark:bg-zinc-850 py-2.5 pl-10 pr-4 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
             />
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           </div>
@@ -102,7 +102,7 @@ export default function ProductPickerModal({
           ) : error ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <ShieldAlert className="h-12 w-12 text-red-500 mb-3" />
-              <h4 className="text-lg font-semibold text-slate-gray dark:text-zinc-200">Failed to load components</h4>
+              <h4 className="text-lg font-semibold text-slate-900 dark:text-zinc-200">Failed to load components</h4>
               <p className="text-sm text-gray-500 max-w-xs mt-1">
                 There was an error communicating with the database. Please try again.
               </p>
@@ -112,7 +112,7 @@ export default function ProductPickerModal({
               <div className="w-16 h-16 rounded-full bg-gray-50 dark:bg-zinc-800 flex items-center justify-center text-gray-400 dark:text-zinc-500 mb-4">
                 <Search className="h-8 w-8" />
               </div>
-              <h4 className="text-lg font-bold font-heading text-slate-gray dark:text-zinc-200">No compatible parts found</h4>
+              <h4 className="text-lg font-bold font-heading text-slate-900 dark:text-zinc-200">No compatible parts found</h4>
               <p className="text-sm text-gray-500 max-w-sm mt-1">
                 {searchQuery
                   ? "Try checking your spelling or search terms."
@@ -145,7 +145,7 @@ export default function ProductPickerModal({
                         <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
                           {product.brand}
                         </span>
-                        <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-100 truncate group-hover:text-rust-copper transition-colors">
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-zinc-100 truncate group-hover:text-rust-copper transition-colors">
                           {product.name}
                         </h4>
                         

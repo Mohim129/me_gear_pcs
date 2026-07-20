@@ -46,7 +46,7 @@ export default function ProductGridSection({ title, subtitle, sort, limit }: Pro
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-gray mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-3">
             {title}
           </h2>
           {subtitle && (

@@ -272,7 +272,7 @@ export default function ChatWidget() {
                 <Bot className="h-7 w-7" />
               </div>
               <div>
-                <h3 className="font-heading font-semibold text-slate-gray dark:text-zinc-200">Welcome to MEG PCs Support!</h3>
+                <h3 className="font-heading font-semibold text-slate-900 dark:text-zinc-200">Welcome to MEG PCs Support!</h3>
                 <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1 max-w-[280px]">
                   Hi, I'm TechBuddy. Ask me anything about components, custom build compatibilities, specs, or product comparisons!
                 </p>
@@ -305,7 +305,7 @@ export default function ChatWidget() {
                     className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "user"
                         ? "bg-slate-gray text-white rounded-tr-none"
-                        : "bg-white dark:bg-zinc-800 text-slate-gray dark:text-zinc-100 border border-gray-200/80 dark:border-zinc-700/80 rounded-tl-none shadow-xs"
+                        : "bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 border border-gray-200/80 dark:border-zinc-700/80 rounded-tl-none shadow-xs"
                     }`}
                   >
                     {msg.content ? (
@@ -332,7 +332,7 @@ export default function ChatWidget() {
               <div className="h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 text-white bg-rust-copper">
                 <Bot className="h-4 w-4" />
               </div>
-              <div className="px-4 py-2.5 bg-white dark:bg-zinc-800 text-slate-gray border border-gray-200/80 dark:border-zinc-700/80 rounded-2xl rounded-tl-none shadow-xs">
+              <div className="px-4 py-2.5 bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 border border-gray-200/80 dark:border-zinc-700/80 rounded-2xl rounded-tl-none shadow-xs">
                 <div className="flex items-center gap-1 py-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-rust-copper animate-bounce" style={{ animationDelay: "0ms" }}></span>
                   <span className="h-1.5 w-1.5 rounded-full bg-rust-copper animate-bounce" style={{ animationDelay: "150ms" }}></span>
@@ -371,7 +371,7 @@ export default function ChatWidget() {
               <button
                 key={i}
                 onClick={() => handleSend(s)}
-                className="inline-flex items-center px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs text-slate-gray dark:text-zinc-300 font-medium hover:border-rust-copper/50 hover:text-rust-copper hover:bg-warm-cream/20 transition-all flex-shrink-0 cursor-pointer"
+                className="inline-flex items-center px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs text-slate-900 dark:text-zinc-300 font-medium hover:border-rust-copper/50 hover:text-rust-copper hover:bg-warm-cream/20 transition-all flex-shrink-0 cursor-pointer"
               >
                 {s}
               </button>
@@ -393,7 +393,7 @@ export default function ChatWidget() {
             onChange={(e) => setInput(e.target.value)}
             disabled={isStreaming}
             placeholder={isStreaming ? "TechBuddy is thinking..." : "Ask TechBuddy a question..."}
-            className="flex-1 rounded-xl border border-gray-350 dark:border-zinc-700 bg-white dark:bg-zinc-850 px-4 py-2.5 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all disabled:opacity-50"
+            className="flex-1 rounded-xl border border-gray-350 dark:border-zinc-700 bg-white dark:bg-zinc-850 px-4 py-2.5 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all disabled:opacity-50"
           />
           <button
             type="submit"

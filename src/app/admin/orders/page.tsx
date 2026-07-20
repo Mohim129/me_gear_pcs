@@ -124,7 +124,7 @@ export default function AdminOrders() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold font-heading text-slate-gray dark:text-zinc-150 leading-none">Orders Processing</h1>
+        <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-150 leading-none">Orders Processing</h1>
         <p className="text-xs text-gray-500 mt-1">Search, fulfill, modify payments status, and adjust custom builds configurations.</p>
       </div>
 
@@ -139,7 +139,7 @@ export default function AdminOrders() {
               placeholder="Search by Order ID / customer name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-xl border border-gray-350 dark:border-zinc-700 bg-white dark:bg-zinc-850 pl-10 pr-4 py-2.5 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50"
+              className="w-full rounded-xl border border-gray-350 dark:border-zinc-700 bg-white dark:bg-zinc-850 pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50"
             />
           </div>
 
@@ -152,7 +152,7 @@ export default function AdminOrders() {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeStatus === tab
                     ? "bg-rust-copper text-white shadow-sm"
-                    : "bg-gray-50 hover:bg-gray-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 text-slate-gray dark:text-zinc-300"
+                    : "bg-gray-50 hover:bg-gray-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 text-slate-900 dark:text-zinc-100 dark:text-zinc-300"
                 }`}
               >
                 {tab}
@@ -194,12 +194,12 @@ export default function AdminOrders() {
               <tbody className="divide-y divide-gray-150 dark:divide-zinc-800/80">
                 {orders.map((order) => (
                   <tr key={order._id} className="hover:bg-gray-50/50 dark:hover:bg-zinc-900/30">
-                    <td className="px-6 py-4 font-mono text-xs font-bold text-slate-gray dark:text-zinc-300">
+                    <td className="px-6 py-4 font-mono text-xs font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-300">
                       #{order._id.substring(order._id.length - 8).toUpperCase()}
                     </td>
                     <td className="px-6 py-4">
                       <div>
-                        <p className="font-semibold text-slate-gray dark:text-zinc-200 leading-none">{order.userName}</p>
+                        <p className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 leading-none">{order.userName}</p>
                         <span className="text-[10px] text-gray-400">{order.userEmail}</span>
                       </div>
                     </td>
@@ -210,7 +210,7 @@ export default function AdminOrders() {
                         year: "numeric",
                       })}
                     </td>
-                    <td className="px-6 py-4 font-bold text-slate-gray dark:text-zinc-250">
+                    <td className="px-6 py-4 font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-250">
                       ৳{order.totalPrice.toLocaleString()}
                     </td>
                     <td className="px-6 py-4">
@@ -266,26 +266,26 @@ export default function AdminOrders() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left side info: Customer & Shipping */}
                 <div className="space-y-4 bg-gray-50/50 dark:bg-zinc-950/10 border border-gray-200/50 dark:border-zinc-800 p-4 rounded-xl">
-                  <h4 className="font-bold text-slate-gray dark:text-zinc-200 border-b border-gray-200 pb-1 flex items-center gap-1.5">
+                  <h4 className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 border-b border-gray-200 pb-1 flex items-center gap-1.5">
                     <User className="h-4 w-4 text-rust-copper" />
                     Customer & Shipping details
                   </h4>
                   <div className="space-y-2 text-xs">
                     <p className="flex justify-between">
                       <span className="text-gray-400">Name:</span>
-                      <span className="font-semibold text-slate-gray dark:text-zinc-350">{selectedOrder.userName}</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-350">{selectedOrder.userName}</span>
                     </p>
                     <p className="flex justify-between">
                       <span className="text-gray-400">Email:</span>
-                      <span className="font-semibold text-slate-gray dark:text-zinc-350">{selectedOrder.userEmail}</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-350">{selectedOrder.userEmail}</span>
                     </p>
                     <p className="flex justify-between">
                       <span className="text-gray-400">Phone:</span>
-                      <span className="font-semibold text-slate-gray dark:text-zinc-350">{selectedOrder.shippingAddress.phone}</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100 dark:text-zinc-350">{selectedOrder.shippingAddress.phone}</span>
                     </p>
                     <div className="pt-2 border-t border-dashed border-gray-200">
                       <p className="text-gray-400 mb-1 flex items-center gap-1"><MapPin className="h-3 w-3" /> Delivery Address:</p>
-                      <p className="font-medium text-slate-gray dark:text-zinc-300">
+                      <p className="font-medium text-slate-900 dark:text-zinc-100 dark:text-zinc-300">
                         {selectedOrder.shippingAddress.street}, {selectedOrder.shippingAddress.city} - {selectedOrder.shippingAddress.zip}
                         {selectedOrder.shippingAddress.state && `, ${selectedOrder.shippingAddress.state}`}
                       </p>
@@ -295,7 +295,7 @@ export default function AdminOrders() {
 
                 {/* Right side info: Status and Payment editing */}
                 <div className="space-y-4 bg-gray-50/50 dark:bg-zinc-950/10 border border-gray-200/50 dark:border-zinc-800 p-4 rounded-xl">
-                  <h4 className="font-bold text-slate-gray dark:text-zinc-200 border-b border-gray-200 pb-1 flex items-center gap-1.5">
+                  <h4 className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200 border-b border-gray-200 pb-1 flex items-center gap-1.5">
                     <Truck className="h-4 w-4 text-rust-copper" />
                     Fulfillment & Actions
                   </h4>
@@ -307,7 +307,7 @@ export default function AdminOrders() {
                         value={selectedOrder.status}
                         onChange={(e) => updateOrderMutation.mutate({ id: selectedOrder._id, status: e.target.value })}
                         disabled={updateOrderMutation.isPending}
-                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
                       >
                         <option value="Pending">Pending</option>
                         <option value="Confirmed">Confirmed</option>
@@ -324,7 +324,7 @@ export default function AdminOrders() {
                         value={selectedOrder.paymentStatus || "Pending"}
                         onChange={(e) => updateOrderMutation.mutate({ id: selectedOrder._id, paymentStatus: e.target.value })}
                         disabled={updateOrderMutation.isPending}
-                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
                       >
                         <option value="Pending">Pending</option>
                         <option value="Paid">Paid</option>
@@ -340,7 +340,7 @@ export default function AdminOrders() {
                         value={selectedOrder.paymentMethod || "Cash on Delivery"}
                         onChange={(e) => updateOrderMutation.mutate({ id: selectedOrder._id, paymentMethod: e.target.value })}
                         disabled={updateOrderMutation.isPending}
-                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-gray focus:outline-none"
+                        className="w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-xs text-slate-900 dark:text-zinc-100 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -349,7 +349,7 @@ export default function AdminOrders() {
 
               {/* Order Items Table */}
               <div className="space-y-3">
-                <h4 className="font-bold font-heading text-slate-gray dark:text-zinc-200 flex items-center gap-1.5 border-b border-gray-250/70 pb-1.5">
+                <h4 className="font-bold font-heading text-slate-900 dark:text-zinc-100 dark:text-zinc-200 flex items-center gap-1.5 border-b border-gray-250/70 pb-1.5">
                   <ClipboardList className="h-4.5 w-4.5 text-rust-copper" />
                   Order Items ({selectedOrder.items.length})
                 </h4>
@@ -366,7 +366,7 @@ export default function AdminOrders() {
                           )}
                         </div>
                         <div>
-                          <p className="font-bold text-slate-gray dark:text-zinc-200">{item.name}</p>
+                          <p className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200">{item.name}</p>
                           <span className="text-xs text-gray-400">Qty: {item.quantity} × ৳{item.price.toLocaleString()}</span>
                           
                           {/* Custom Build Component Sub-table */}
@@ -384,7 +384,7 @@ export default function AdminOrders() {
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="font-bold text-slate-gray dark:text-zinc-200">৳{(item.price * item.quantity).toLocaleString()}</p>
+                        <p className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-200">৳{(item.price * item.quantity).toLocaleString()}</p>
                       </div>
                     </div>
                   ))}
@@ -393,7 +393,7 @@ export default function AdminOrders() {
 
               {/* Order Total summary */}
               <div className="flex justify-between items-center py-4 border-t border-gray-250 dark:border-zinc-800">
-                <span className="font-bold text-slate-gray dark:text-zinc-300">Grand Total Price:</span>
+                <span className="font-bold text-slate-900 dark:text-zinc-100 dark:text-zinc-300">Grand Total Price:</span>
                 <span className="text-2xl font-black font-heading text-rust-copper">৳{selectedOrder.totalPrice.toLocaleString()} BDT</span>
               </div>
             </div>

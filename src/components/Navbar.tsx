@@ -101,7 +101,7 @@ export default function Navbar() {
                 href={link.href}
                 className={`font-heading text-sm font-medium tracking-wide transition-colors duration-200 flex items-center gap-1.5 ${isLinkActive(link.href)
                   ? "text-rust-copper border-b-2 border-rust-copper pb-1"
-                  : "text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
+                  : "text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper"
                   }`}
               >
                 {link.icon && <link.icon className="h-4 w-4" />}
@@ -115,7 +115,7 @@ export default function Navbar() {
             {/* Search */}
             <Link
               href="/products"
-              className="text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
+              className="text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
               aria-label="Search"
             >
               <Search className="h-5 w-5" />
@@ -131,7 +131,7 @@ export default function Navbar() {
                         {/* Wishlist */}
                         <Link
                           href="/wishlist"
-                          className="relative text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
+                          className="relative text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
                           aria-label="Wishlist"
                         >
                           <Heart className="h-5 w-5" />
@@ -145,7 +145,7 @@ export default function Navbar() {
                         {/* Cart */}
                         <Link
                           href="/cart"
-                          className="relative text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
+                          className="relative text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors"
                           aria-label="Cart"
                         >
                           <ShoppingBag className="h-5 w-5" />
@@ -171,7 +171,7 @@ export default function Navbar() {
                     <div className="relative" ref={dropdownRef}>
                       <button
                         onClick={() => setDropdownOpen(!dropdownOpen)}
-                        className="flex items-center gap-2 text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors focus:outline-none"
+                        className="flex items-center gap-2 text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper transition-colors focus:outline-none"
                       >
                         {user.image ? (
                           <img
@@ -191,7 +191,7 @@ export default function Navbar() {
                         <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 dark:bg-zinc-800 dark:ring-white/10 focus:outline-none">
                           <div className="px-4 py-2 border-b border-gray-100 dark:border-zinc-700">
                             <p className="text-xs text-gray-500 dark:text-zinc-400">Signed in as</p>
-                            <p className="text-sm font-semibold truncate text-slate-gray dark:text-zinc-200">
+                            <p className="text-sm font-semibold truncate text-slate-900 dark:text-zinc-200">
                               {user.email}
                             </p>
                           </div>
@@ -236,7 +236,7 @@ export default function Navbar() {
                   <div className="flex items-center space-x-3">
                     <Link
                       href="/login"
-                      className="text-sm font-medium text-slate-gray hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper px-3 py-1.5 transition-colors"
+                      className="text-sm font-medium text-slate-900 dark:text-zinc-100 hover:text-rust-copper dark:text-zinc-300 dark:hover:text-rust-copper px-3 py-1.5 transition-colors"
                     >
                       Login
                     </Link>
@@ -260,7 +260,7 @@ export default function Navbar() {
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-gray dark:text-zinc-300 hover:text-rust-copper focus:outline-none"
+              className="text-slate-900 dark:text-zinc-300 hover:text-rust-copper focus:outline-none"
               aria-label="Toggle Menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -279,7 +279,7 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${isLinkActive(link.href)
                 ? "bg-rust-copper/10 text-rust-copper"
-                : "text-slate-gray hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
+                : "text-slate-900 dark:text-zinc-100 hover:bg-gray-50 hover:text-rust-copper dark:text-zinc-300 dark:hover:bg-zinc-800"
                 }`}
             >
               <span className="flex items-center gap-2">
@@ -294,7 +294,7 @@ export default function Navbar() {
               <Link
                 href="/products"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-slate-gray hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                className="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-slate-900 dark:text-zinc-100 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
               >
                 <Search className="h-5 w-5" />
                 Search Products
@@ -307,7 +307,7 @@ export default function Navbar() {
                       <Link
                         href="/wishlist"
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-slate-gray hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-slate-900 dark:text-zinc-100 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
                       >
                         <span className="flex items-center gap-3">
                           <Heart className="h-5 w-5" />
@@ -323,7 +323,7 @@ export default function Navbar() {
                       <Link
                         href="/cart"
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-slate-gray hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-slate-900 dark:text-zinc-100 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
                       >
                         <span className="flex items-center gap-3">
                           <ShoppingBag className="h-5 w-5" />
@@ -340,7 +340,7 @@ export default function Navbar() {
                     <Link
                       href="/admin"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-slate-gray hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                      className="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-slate-900 dark:text-zinc-100 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
                     >
                       <LayoutDashboard className="h-5 w-5" />
                       Admin Dashboard
@@ -363,7 +363,7 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center rounded-md border border-gray-300 py-2 text-sm font-medium text-slate-gray hover:bg-gray-50 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-800"
+                    className="flex items-center justify-center rounded-md border border-gray-300 py-2 text-sm font-medium text-slate-900 dark:text-zinc-100 hover:bg-gray-50 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-800"
                   >
                     Login
                   </Link>

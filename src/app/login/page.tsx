@@ -146,7 +146,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-3xl border border-gray-200/80 shadow-xl shadow-gray-200/30">
           
           <div className="text-center">
-            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-gray">
+            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-zinc-100">
               Sign In
             </h3>
             <p className="text-sm text-gray-500 mt-2">
@@ -158,7 +158,7 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-5">
             {/* Email */}
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+              <label htmlFor="email" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                 Email Address
               </label>
               <div className="relative">
@@ -169,7 +169,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
@@ -178,7 +178,7 @@ export default function LoginPage() {
             {/* Password */}
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <label htmlFor="password" className="text-xs font-semibold text-slate-gray uppercase tracking-wider">
+                <label htmlFor="password" className="text-xs font-semibold text-slate-900 dark:text-zinc-100 uppercase tracking-wider">
                   Password
                 </label>
                 <button
@@ -197,13 +197,13 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-gray focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
+                  className="w-full rounded-xl border border-gray-300/80 bg-white py-3 pl-10 pr-10 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all duration-300"
                 />
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-gray focus:outline-none"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-900 dark:text-zinc-100 focus:outline-none"
                 >
                   {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                 </button>
@@ -232,14 +232,14 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleDemoLogin("user")}
-              className="rounded-xl border border-gray-200 hover:border-rust-copper/50 hover:bg-warm-cream/50 py-2.5 text-xs font-semibold text-slate-gray transition-colors text-center"
+              className="rounded-xl border border-gray-200 hover:border-rust-copper/50 hover:bg-warm-cream/50 py-2.5 text-xs font-semibold text-slate-900 dark:text-zinc-100 transition-colors text-center"
             >
               Demo User Login
             </button>
             <button
               type="button"
               onClick={() => handleDemoLogin("admin")}
-              className="rounded-xl border border-gray-200 hover:border-rust-copper/50 hover:bg-warm-cream/50 py-2.5 text-xs font-semibold text-slate-gray transition-colors text-center"
+              className="rounded-xl border border-gray-200 hover:border-rust-copper/50 hover:bg-warm-cream/50 py-2.5 text-xs font-semibold text-slate-900 dark:text-zinc-100 transition-colors text-center"
             >
               Demo Admin Login
             </button>
@@ -258,7 +258,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-300 py-3 text-sm font-semibold text-slate-gray hover:bg-gray-50 hover:border-gray-400 transition-colors"
+            className="w-full flex items-center justify-center gap-2.5 rounded-xl border border-gray-300 py-3 text-sm font-semibold text-slate-900 dark:text-zinc-100 hover:bg-gray-50 hover:border-gray-400 transition-colors"
           >
             <GoogleIcon />
             Sign in with Google

@@ -127,7 +127,7 @@ export default function CheckoutPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="border-b border-gray-200/80 pb-6 mb-8">
-        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
+        <h1 className="text-3xl font-black font-heading tracking-tight text-slate-900 dark:text-zinc-100 flex items-center gap-2">
           <CreditCard className="h-7 w-7 text-rust-copper" />
           CHECKOUT
         </h1>
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
         {/* Left: Shipping Form */}
         <div className="lg:col-span-6 space-y-6">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
-            <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 flex items-center gap-2">
+            <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 flex items-center gap-2">
               <Truck className="h-5 w-5 text-rust-copper" />
               Shipping Information
             </h3>
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Rahim Ahmed"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
 
@@ -168,7 +168,7 @@ export default function CheckoutPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. 01712345678"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function CheckoutPage() {
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
                 placeholder="e.g. House 12, Road 5, Dhanmondi"
-                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
               />
             </div>
 
@@ -196,7 +196,7 @@ export default function CheckoutPage() {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="e.g. Dhaka"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
 
@@ -209,7 +209,7 @@ export default function CheckoutPage() {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                   placeholder="Optional"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
 
@@ -222,7 +222,7 @@ export default function CheckoutPage() {
                   value={zip}
                   onChange={(e) => setZip(e.target.value)}
                   placeholder="e.g. 1205"
-                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-gray dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
                 />
               </div>
             </div>
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
 
           {/* Payment Method */}
           <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm">
-            <h3 className="font-heading font-bold text-slate-gray dark:text-zinc-200 flex items-center gap-2 mb-3">
+            <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 flex items-center gap-2 mb-3">
               <ShieldCheck className="h-5 w-5 text-rust-copper" />
               Payment Method
             </h3>
@@ -253,7 +253,7 @@ export default function CheckoutPage() {
         {/* Right: Order Summary */}
         <div className="lg:col-span-4">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-6 shadow-md sticky top-24 space-y-6">
-            <h3 className="font-heading text-lg font-bold text-slate-gray dark:text-zinc-200 border-b border-gray-150 pb-3">
+            <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-zinc-200 border-b border-gray-150 pb-3">
               ORDER SUMMARY
             </h3>
 
@@ -280,7 +280,7 @@ export default function CheckoutPage() {
                       {item.type === "custom_build" && (
                         <Cpu className="h-3 w-3 text-purple-500 flex-shrink-0" />
                       )}
-                      <span className="font-medium text-slate-gray dark:text-zinc-300 truncate">
+                      <span className="font-medium text-slate-900 dark:text-zinc-300 truncate">
                         {item.name}
                       </span>
                     </div>
