@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import QueryProvider from "@/components/QueryProvider";
+import WishlistProvider from "@/components/WishlistProvider";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -44,12 +46,15 @@ export default function RootLayout({
     >
       <body className="antialiased min-h-screen bg-warm-cream">
         <QueryProvider>
-          <div id="root" className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-1 flex flex-col">{children}</main>
-            <Footer />
-          </div>
-          <Toaster richColors position="top-right" />
+          <WishlistProvider>
+            <div id="root" className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-1 flex flex-col">{children}</main>
+              <Footer />
+            </div>
+            <ChatWidget />
+            <Toaster richColors position="top-right" />
+          </WishlistProvider>
         </QueryProvider>
       </body>
     </html>

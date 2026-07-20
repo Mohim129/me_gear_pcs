@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export interface CartItemComponent {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface CartItem {
   id: string;
   name: string;
@@ -8,13 +14,14 @@ export interface CartItem {
   quantity: number;
   image?: string;
   type?: "custom_build";
-  components?: Record<string, any>;
+  components?: Record<string, CartItemComponent>;
 }
 
 interface CartState {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 }
 
@@ -37,6 +44,12 @@ export const useCartStore = create<CartState>()(
       removeItem: (id) =>
         set((state) => ({
           items: state.items.filter((item) => item.id !== id),
+        })),
+      updateQuantity: (id, quantity) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+          ),
         })),
       clearCart: () => set({ items: [] }),
     }),

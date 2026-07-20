@@ -5,42 +5,43 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { 
-  Cpu, 
-  Wind, 
-  Layers, 
-  Database, 
-  HardDrive, 
-  Zap, 
-  Box, 
-  Monitor, 
-  Keyboard, 
-  Mouse, 
-  Volume2, 
-  Headphones, 
-  Wrench, 
-  Sparkles, 
-  Trash2, 
-  ShoppingBag, 
-  Save, 
-  Check, 
-  AlertTriangle, 
+import {
+  Cpu,
+  Wind,
+  Layers,
+  Database,
+  HardDrive,
+  Zap,
+  Box,
+  Monitor,
+  Keyboard,
+  Mouse,
+  Volume2,
+  Headphones,
+  Wrench,
+  Sparkles,
+  Trash2,
+  ShoppingBag,
+  Save,
+  Check,
+  AlertTriangle,
   Info,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
-import { useBuilderStore, Product } from "@/store/builder";
+import { useBuilderStore, Product, ComponentSlot } from "@/store/builder";
 import { useCartStore } from "@/store/cart";
 import { useSession } from "@/lib/auth-client";
 import { getCompatibilityWarnings, calculateMinPSUWattage } from "@/lib/compatibility";
 import ProductPickerModal from "./ProductPickerModal";
 
+// Updated: cooler and gpu are optional (recommended but not mandatory)
 const CORE_SLOTS = [
   { slug: "cpu", name: "CPU", icon: Cpu, required: true },
-  { slug: "cooler", name: "CPU Cooler", icon: Wind, required: true },
+  { slug: "cooler", name: "CPU Cooler", icon: Wind, required: false },
   { slug: "motherboard", name: "Motherboard", icon: Layers, required: true },
   { slug: "ram", name: "RAM", icon: Database, required: true },
   { slug: "storage", name: "Storage", icon: HardDrive, required: true },
-  { slug: "gpu", name: "GPU (Graphics Card)", icon: Monitor, required: true },
+  { slug: "gpu", name: "GPU (Graphics Card)", icon: Monitor, required: false },
   { slug: "psu", name: "Power Supply (PSU)", icon: Zap, required: true },
   { slug: "casing", name: "Casing", icon: Box, required: true },
 ];
@@ -57,26 +58,24 @@ export default function PCBuilderClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
-  
-  const { 
-    selectedComponents, 
-    aiSuggestions, 
-    selectComponent, 
-    removeComponent, 
-    confirmBuild, 
-    clearBuild 
+
+  const {
+    selectedComponents,
+    aiSuggestions,
+    selectComponent,
+    removeComponent,
+    confirmBuild,
+    clearBuild,
   } = useBuilderStore();
 
   const { addItem } = useCartStore();
 
-  // Builder settings
   const [budget, setBudget] = useState<string>("150000");
   const [useCase, setUseCase] = useState<string>("Gaming");
   const [activePicker, setActivePicker] = useState<{ slug: string; name: string } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isConfirmedBuildState, setIsConfirmedBuildState] = useState(false);
 
-  // Load build if buildId is provided in URL
   const buildId = searchParams.get("buildId");
   const { data: loadedBuild, isLoading: isLoadingBuild } = useQuery({
     queryKey: ["build", buildId],
@@ -91,14 +90,13 @@ export default function PCBuilderClient() {
   useEffect(() => {
     if (loadedBuild && loadedBuild.components) {
       clearBuild();
-      Object.entries(loadedBuild.components).forEach(([slot, product]: [string, any]) => {
-        selectComponent(slot, product);
+      Object.entries(loadedBuild.components).forEach(([slot, product]) => {
+        selectComponent(slot as ComponentSlot, product as Product);
       });
       toast.success("Successfully loaded custom build configuration!");
     }
   }, [loadedBuild, clearBuild, selectComponent]);
 
-  // AI mutation
   const aiMutation = useMutation({
     mutationFn: async (payload: { budget: number; useCase: string; selectedComponents: Record<string, string> }) => {
       const res = await fetch("/api/ai/recommend", {
@@ -112,19 +110,17 @@ export default function PCBuilderClient() {
     },
     onSuccess: (data) => {
       toast.success("AI Recommendation complete!");
-      // Fetch details of all recommended products
       const recommendedIds = Object.values(data.recommendations) as string[];
       if (recommendedIds.length === 0) return;
 
-      // Populate empty slots in store
       fetch(`/api/products?limit=100`)
         .then((res) => res.json())
         .then((products: Product[]) => {
           Object.entries(data.recommendations).forEach(([slot, id]) => {
+            if (!id) return; // allow null for optional slots
             const product = products.find((p) => p._id === id);
             if (product) {
-              const reasoning = data.reasoning[slot] || "Optimal performance component matching budget limits.";
-              selectComponent(slot, product, true, reasoning);
+              selectComponent(slot as ComponentSlot, product as Product | null);
             }
           });
           setIsConfirmedBuildState(false);
@@ -138,25 +134,22 @@ export default function PCBuilderClient() {
     },
   });
 
-  // Calculate pricing
-  const coreTotal = CORE_SLOTS.reduce((sum, slot) => sum + (selectedComponents[slot.slug]?.price || 0), 0);
-  const peripheralTotal = PERIPHERAL_SLOTS.reduce((sum, slot) => sum + (selectedComponents[slot.slug]?.price || 0), 0);
+  const coreTotal = CORE_SLOTS.reduce((sum, slot) => sum + (selectedComponents[slot.slug as ComponentSlot]?.price || 0), 0);
+  const peripheralTotal = PERIPHERAL_SLOTS.reduce((sum, slot) => sum + (selectedComponents[slot.slug as ComponentSlot]?.price || 0), 0);
   const totalPrice = coreTotal + peripheralTotal;
 
-  // Wattage estimation
   const cpu = selectedComponents.cpu || null;
   const gpu = selectedComponents.gpu || null;
   const estWattage = calculateMinPSUWattage(cpu, gpu);
   const selectedPsu = selectedComponents.psu || null;
   const psuWattage = selectedPsu?.specifications?.wattage || null;
 
-  // Check warnings
   const warnings = getCompatibilityWarnings(selectedComponents);
 
-  // Core slots completion
-  const isCoreCompleted = CORE_SLOTS.every((slot) => !!selectedComponents[slot.slug]);
+  // Only required core slots must be filled to complete the build
+  const mandatorySlots = CORE_SLOTS.filter((s) => s.required).map((s) => s.slug);
+  const isCoreCompleted = mandatorySlots.every((slug) => !!selectedComponents[slug as ComponentSlot]);
 
-  // Check if there are any active AI recommendations with RGB borders
   const hasUnconfirmedAiSuggestions = Object.entries(aiSuggestions).some(
     ([key, value]) => value?.suggested && CORE_SLOTS.some((s) => s.slug === key)
   );
@@ -168,10 +161,10 @@ export default function PCBuilderClient() {
       return;
     }
 
-    // Filter to manually picked or confirmed slots (exclude unconfirmed AI picks)
     const manualSelections: Record<string, string> = {};
     Object.entries(selectedComponents).forEach(([slot, p]) => {
-      const isSuggested = aiSuggestions[slot]?.suggested;
+      if (!p) return;
+      const isSuggested = aiSuggestions[slot as ComponentSlot]?.suggested;
       if (!isSuggested && CORE_SLOTS.some((s) => s.slug === slot)) {
         manualSelections[slot] = p._id;
       }
@@ -198,7 +191,9 @@ export default function PCBuilderClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           components: Object.entries(selectedComponents).reduce((acc, [slot, p]) => {
-            acc[slot] = p._id;
+            if (p) {
+              acc[slot] = p._id;
+            }
             return acc;
           }, {} as Record<string, string>),
           totalPrice,
@@ -223,11 +218,10 @@ export default function PCBuilderClient() {
     }
 
     if (!isCoreCompleted) {
-      toast.error("Please complete all core components before adding to cart.");
+      toast.error("Please complete all mandatory core components (CPU, Motherboard, RAM, Storage, PSU, Casing) before adding to cart.");
       return;
     }
 
-    // Bundle selections
     addItem({
       id: `build_${Date.now()}`,
       name: "Custom PC Build",
@@ -236,9 +230,15 @@ export default function PCBuilderClient() {
       image: selectedComponents.casing?.image || selectedComponents.cpu?.image || "https://i.ibb.co.com/3mJXy3Y8/meg-PCs-hero2.png",
       type: "custom_build",
       components: Object.entries(selectedComponents).reduce((acc, [slot, p]) => {
-        acc[slot] = p._id;
+        if (p) {
+          acc[slot] = {
+            id: p._id,
+            name: p.name,
+            price: p.price,
+          };
+        }
         return acc;
-      }, {} as Record<string, string>),
+      }, {} as Record<string, { id: string; name: string; price: number }>),
     });
 
     toast.success("Custom PC Build added to your cart!");
@@ -246,7 +246,6 @@ export default function PCBuilderClient() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-gray-200/80 pb-6 mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-black font-heading tracking-tight text-slate-gray flex items-center gap-2">
@@ -258,7 +257,6 @@ export default function PCBuilderClient() {
           </p>
         </div>
 
-        {/* AI Recommendations Panel */}
         <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 p-4 rounded-2xl shadow-sm flex flex-wrap items-center gap-3.5 max-w-xl">
           <div className="flex flex-col gap-0.5 min-w-[120px]">
             <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Budget (BDT)</label>
@@ -301,7 +299,6 @@ export default function PCBuilderClient() {
         </div>
       </div>
 
-      {/* Warnings & AI Confirmation bar */}
       <div className="space-y-3 mb-6">
         {warnings.length > 0 && (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex gap-3 text-red-800">
@@ -342,40 +339,33 @@ export default function PCBuilderClient() {
         )}
       </div>
 
-      {/* Main Workspace Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
-        
-        {/* Core slots - Left 70% */}
         <div className="lg:col-span-7 space-y-8">
-          
-          {/* Core Components */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold font-heading text-slate-gray flex items-center gap-2 border-b border-gray-200 pb-2">
               <span className="bg-rust-copper text-white rounded-lg p-1 text-xs">01</span>
               CORE COMPONENTS
-              <span className="text-xs font-medium text-gray-400">(Required to build)</span>
+              <span className="text-xs font-medium text-gray-400">(Mandatory fields marked with *)</span>
             </h3>
-            
+
             <div className="space-y-3.5">
               {CORE_SLOTS.map((slot) => {
-                const product = selectedComponents[slot.slug];
-                const isSuggested = aiSuggestions[slot.slug]?.suggested;
-                const reasoning = aiSuggestions[slot.slug]?.reasoning;
+                const product = selectedComponents[slot.slug as ComponentSlot];
+                const isSuggested = aiSuggestions[slot.slug as ComponentSlot]?.suggested;
+                const reasoning = aiSuggestions[slot.slug as ComponentSlot]?.reasoning;
                 const SlotIcon = slot.icon;
 
                 return (
                   <div
                     key={slot.slug}
-                    className={`rounded-2xl border transition-all duration-300 ${
-                      product
+                    className={`rounded-2xl border transition-all duration-300 ${product
                         ? isSuggested
                           ? "ai-suggested-border shadow-md"
                           : "border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm"
                         : "border-dashed border-gray-300 dark:border-zinc-700 bg-gray-50/20 dark:bg-zinc-900/10 hover:bg-gray-50/50 dark:hover:bg-zinc-850/20"
-                    }`}
+                      }`}
                   >
                     {!product ? (
-                      // Empty state
                       <div className="flex items-center justify-between p-5 gap-4">
                         <div className="flex items-center gap-3.5">
                           <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-gray-400 dark:text-zinc-500">
@@ -385,8 +375,9 @@ export default function PCBuilderClient() {
                             <h4 className="text-sm font-bold text-slate-gray dark:text-zinc-300">
                               {slot.name}
                             </h4>
-                            <span className="text-xs text-red-500 font-semibold flex items-center gap-1 mt-0.5">
-                              * Category Required
+                            <span className={`text-xs font-semibold flex items-center gap-1 mt-0.5 ${slot.required ? "text-red-500" : "text-gray-400"
+                              }`}>
+                              {slot.required ? "* Required" : "(Optional)"}
                             </span>
                           </div>
                         </div>
@@ -399,10 +390,8 @@ export default function PCBuilderClient() {
                         </button>
                       </div>
                     ) : (
-                      // Populated state
                       <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4 min-w-0">
-                          {/* Image */}
                           <div className="relative w-16 h-16 bg-gray-50 dark:bg-zinc-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
                             <Image
                               src={product.image || "https://i.ibb.co.com/3mJXy3Y8/meg-PCs-hero2.png"}
@@ -413,7 +402,6 @@ export default function PCBuilderClient() {
                             />
                           </div>
 
-                          {/* Info */}
                           <div className="min-w-0">
                             <div className="flex items-center gap-2">
                               <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
@@ -441,12 +429,11 @@ export default function PCBuilderClient() {
                           </div>
                         </div>
 
-                        {/* Actions */}
                         <div className="flex items-center gap-2.5 self-end sm:self-auto">
                           {isSuggested && (
                             <button
                               onClick={() => {
-                                selectComponent(slot.slug, product, false); // clear suggestion flag
+                                selectComponent(slot.slug as ComponentSlot, product as any);
                                 toast.success(`Confirmed ${product.name}!`);
                               }}
                               className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 dark:bg-emerald-950/20 dark:text-emerald-400 font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1 border border-emerald-200/50 cursor-pointer"
@@ -464,7 +451,7 @@ export default function PCBuilderClient() {
                           </button>
                           <button
                             onClick={() => {
-                              removeComponent(slot.slug);
+                              removeComponent(slot.slug as ComponentSlot);
                               toast.info(`Removed ${slot.name}`);
                             }}
                             className="text-gray-400 hover:text-red-500 p-2 rounded-xl transition-colors cursor-pointer"
@@ -481,7 +468,6 @@ export default function PCBuilderClient() {
             </div>
           </div>
 
-          {/* Optional Peripherals */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold font-heading text-slate-gray flex items-center gap-2 border-b border-gray-200 pb-2">
               <span className="bg-rust-copper text-white rounded-lg p-1 text-xs">02</span>
@@ -491,20 +477,18 @@ export default function PCBuilderClient() {
 
             <div className="space-y-3.5">
               {PERIPHERAL_SLOTS.map((slot) => {
-                const product = selectedComponents[slot.slug];
+                const product = selectedComponents[slot.slug as ComponentSlot];
                 const SlotIcon = slot.icon;
 
                 return (
                   <div
                     key={slot.slug}
-                    className={`rounded-2xl border transition-all duration-300 ${
-                      product
+                    className={`rounded-2xl border transition-all duration-300 ${product
                         ? "border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm"
                         : "border-dashed border-gray-300 dark:border-zinc-700 bg-gray-50/20 dark:bg-zinc-900/10 hover:bg-gray-50/50 dark:hover:bg-zinc-850/20"
-                    }`}
+                      }`}
                   >
                     {!product ? (
-                      // Empty state
                       <div className="flex items-center justify-between p-5 gap-4">
                         <div className="flex items-center gap-3.5">
                           <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-gray-400 dark:text-zinc-500">
@@ -528,10 +512,8 @@ export default function PCBuilderClient() {
                         </button>
                       </div>
                     ) : (
-                      // Populated state
                       <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4 min-w-0">
-                          {/* Image */}
                           <div className="relative w-16 h-16 bg-gray-50 dark:bg-zinc-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
                             <Image
                               src={product.image || "https://i.ibb.co.com/3mJXy3Y8/meg-PCs-hero2.png"}
@@ -542,7 +524,6 @@ export default function PCBuilderClient() {
                             />
                           </div>
 
-                          {/* Info */}
                           <div className="min-w-0">
                             <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
                               {product.brand}
@@ -556,7 +537,6 @@ export default function PCBuilderClient() {
                           </div>
                         </div>
 
-                        {/* Actions */}
                         <div className="flex items-center gap-2.5 self-end sm:self-auto">
                           <button
                             onClick={() => setActivePicker({ slug: slot.slug, name: slot.name })}
@@ -566,7 +546,7 @@ export default function PCBuilderClient() {
                           </button>
                           <button
                             onClick={() => {
-                              removeComponent(slot.slug);
+                              removeComponent(slot.slug as ComponentSlot);
                               toast.info(`Removed ${slot.name}`);
                             }}
                             className="text-gray-400 hover:text-red-500 p-2 rounded-xl transition-colors cursor-pointer"
@@ -581,10 +561,8 @@ export default function PCBuilderClient() {
               })}
             </div>
           </div>
-
         </div>
 
-        {/* Sticky Summary Sidebar - Right 30% */}
         <div className="lg:col-span-3">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-6 shadow-md sticky top-24 space-y-6">
             <div>
@@ -593,31 +571,31 @@ export default function PCBuilderClient() {
               </h3>
             </div>
 
-            {/* List of active parts */}
             <div className="space-y-3.5 max-h-[260px] overflow-y-auto pr-1">
-              {Object.keys(selectedComponents).length === 0 ? (
+              {!Object.values(selectedComponents).some(Boolean) ? (
                 <p className="text-xs text-gray-400 italic text-center py-6">
                   No components selected yet.
                 </p>
               ) : (
-                Object.entries(selectedComponents).map(([slotSlug, product]) => {
-                  const label = [...CORE_SLOTS, ...PERIPHERAL_SLOTS].find((s) => s.slug === slotSlug)?.name || slotSlug;
-                  return (
-                    <div key={slotSlug} className="flex justify-between items-start gap-2.5 text-xs text-slate-gray dark:text-zinc-300">
-                      <div className="min-w-0">
-                        <span className="block font-bold text-[10px] text-gray-400 uppercase tracking-wider">{label}</span>
-                        <span className="block font-medium truncate max-w-[160px]">{product.name}</span>
+                Object.entries(selectedComponents)
+                  .filter(([, product]) => product !== null)
+                  .map(([slotSlug, product]) => {
+                    const label = [...CORE_SLOTS, ...PERIPHERAL_SLOTS].find((s) => s.slug === slotSlug)?.name || slotSlug;
+                    return (
+                      <div key={slotSlug} className="flex justify-between items-start gap-2.5 text-xs text-slate-gray dark:text-zinc-300">
+                        <div className="min-w-0">
+                          <span className="block font-bold text-[10px] text-gray-400 uppercase tracking-wider">{label}</span>
+                          <span className="block font-medium truncate max-w-[160px]">{product!.name}</span>
+                        </div>
+                        <span className="font-bold text-right flex-shrink-0 text-rust-copper">
+                          {product!.price.toLocaleString()} BDT
+                        </span>
                       </div>
-                      <span className="font-bold text-right flex-shrink-0 text-rust-copper">
-                        {product.price.toLocaleString()} BDT
-                      </span>
-                    </div>
-                  );
-                })
+                    );
+                  })
               )}
             </div>
 
-            {/* Wattage bar */}
             <div className="bg-gray-50 dark:bg-zinc-850 p-4 rounded-2xl space-y-2 border border-gray-150/50 dark:border-zinc-800/40">
               <div className="flex items-center justify-between text-xs text-slate-gray dark:text-zinc-300">
                 <span className="font-semibold">Estimated Power Draw:</span>
@@ -639,7 +617,6 @@ export default function PCBuilderClient() {
               )}
             </div>
 
-            {/* Pricing totals */}
             <div className="pt-4 border-t border-gray-150">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Estimated Total</span>
@@ -649,13 +626,12 @@ export default function PCBuilderClient() {
               </div>
             </div>
 
-            {/* Actions */}
             <div className="space-y-2.5 pt-2">
               <button
                 onClick={handleFinalize}
                 disabled={!isCoreCompleted}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-rust-copper hover:bg-rust-copper/90 text-white font-bold text-sm py-3 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                title={!isCoreCompleted ? "Please select all core components first." : ""}
+                title={!isCoreCompleted ? "Please select all mandatory core components first (CPU, Motherboard, RAM, Storage, PSU, Casing)." : ""}
               >
                 <ShoppingBag className="h-4.5 w-4.5" />
                 Finalize & Add to Cart
@@ -689,19 +665,17 @@ export default function PCBuilderClient() {
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* Product selection modal */}
       {activePicker && (
         <ProductPickerModal
           isOpen={!!activePicker}
           onClose={() => setActivePicker(null)}
           categorySlug={activePicker.slug}
           categoryName={activePicker.name}
-          currentBuild={selectedComponents}
+          currentBuild={selectedComponents as any}
           onSelect={(product) => {
-            selectComponent(activePicker.slug, product);
+            selectComponent(activePicker.slug as ComponentSlot, product as any);
             toast.success(`Added ${product.name} to ${activePicker.name}!`);
           }}
         />

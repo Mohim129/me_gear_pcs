@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { useCartStore } from "@/store/cart";
+import { useWishlistStore } from "@/store/wishlist";
 import ProductCard, { type Product } from "@/components/home/ProductCard";
 
 interface Review {
@@ -40,6 +41,10 @@ export default function ProductDetailClient({ productId }: { productId: string }
   const queryClient = useQueryClient();
   const { data: session } = useSession();
   const { addItem } = useCartStore();
+  const wishlistItems = useWishlistStore((state) => state.items);
+  const addWishlistItem = useWishlistStore((state) => state.addItem);
+  const removeWishlistItem = useWishlistStore((state) => state.removeItem);
+  const isInWishlist = wishlistItems.includes(productId);
 
   const [activeTab, setActiveTab] = useState<"description" | "specifications" | "reviews" | "shipping">("description");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -168,9 +173,25 @@ export default function ProductDetailClient({ productId }: { productId: string }
     toast.success(`${quantity} x ${product.name} added to cart!`);
   };
 
-  const handleAddToWishlist = () => {
+  const handleAddToWishlist = async () => {
+    if (!session) {
+      toast.error("Please log in to add items to your wishlist.");
+      router.push(`/login?callback=/products/${productId}`);
+      return;
+    }
     if (!product) return;
-    toast.success(`${product.name} added to your wishlist!`);
+
+    try {
+      if (isInWishlist) {
+        await removeWishlistItem(product._id);
+        toast.info(`${product.name} removed from wishlist`);
+      } else {
+        await addWishlistItem(product._id);
+        toast.success(`${product.name} added to wishlist!`);
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to update wishlist.");
+    }
   };
 
   if (isProductLoading) {
@@ -390,10 +411,14 @@ export default function ProductDetailClient({ productId }: { productId: string }
               {/* Add to Wishlist */}
               <button
                 onClick={handleAddToWishlist}
-                className="p-3 rounded-xl border border-gray-300 hover:border-rust-copper/50 hover:bg-warm-cream/50 text-slate-gray hover:text-rust-copper transition-colors focus:outline-none"
-                aria-label="Add to Wishlist"
+                className={`p-3 rounded-xl border transition-colors focus:outline-none ${
+                  isInWishlist
+                    ? "border-rust-copper/30 bg-rust-copper/5 text-rust-copper"
+                    : "border-gray-300 hover:border-rust-copper/50 hover:bg-warm-cream/50 text-slate-gray hover:text-rust-copper"
+                }`}
+                aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
               >
-                <Heart className="h-5 w-5" />
+                <Heart className={`h-5 w-5 ${isInWishlist ? "fill-rust-copper text-rust-copper" : ""}`} />
               </button>
             </div>
           )}

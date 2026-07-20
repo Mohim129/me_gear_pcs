@@ -97,7 +97,7 @@ export function checkPSU(cpu: Product | null, gpu: Product | null, psu: Product 
   return { compatible: true };
 }
 
-export function getCompatibilityWarnings(selected: Record<string, Product>): string[] {
+export function getCompatibilityWarnings(selected: Record<string, Product | null>): string[] {
   const warnings: string[] = [];
   const cpu = selected.cpu || null;
   const motherboard = selected.motherboard || null;

@@ -17,11 +17,13 @@ import {
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useCartStore } from "@/store/cart";
+import { useWishlistStore } from "@/store/wishlist";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
   const cartItems = useCartStore((state) => state.items);
+  const wishlistItems = useWishlistStore((state) => state.items);
 
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,7 +48,7 @@ export default function Navbar() {
   }, []);
 
   const cartCount = mounted ? cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
-  const wishlistCount = 0; // Hardcoded placeholder for now
+  const wishlistCount = mounted ? wishlistItems.length : 0;
 
   const user = session?.user;
   const isAdmin = user?.role === "admin";
