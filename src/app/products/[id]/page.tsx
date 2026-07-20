@@ -1,6 +1,7 @@
 import React from "react";
 import ProductDetailClient from "@/components/products/ProductDetailClient";
 import { connectToDatabase } from "@/lib/db";
+import { ObjectId } from "mongodb";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -10,7 +11,8 @@ export async function generateMetadata({ params }: PageProps) {
   try {
     const { id } = await params;
     const { db } = await connectToDatabase();
-    const product = await db.collection("products").findOne({ _id: id } as any);
+    const query = { _id: ObjectId.isValid(id) ? new ObjectId(id) : id } as any;
+    const product = await db.collection("products").findOne(query);
     
     if (!product) {
       return {

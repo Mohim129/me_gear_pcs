@@ -1,5 +1,6 @@
 import { connectToDatabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
 
 export async function GET(
   request: NextRequest,
@@ -9,7 +10,8 @@ export async function GET(
     const { id } = await params;
     const { db } = await connectToDatabase();
 
-    const product = await db.collection("products").findOne({ _id: id } as any);
+    const query = { _id: ObjectId.isValid(id) ? new ObjectId(id) : id } as any;
+    const product = await db.collection("products").findOne(query);
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

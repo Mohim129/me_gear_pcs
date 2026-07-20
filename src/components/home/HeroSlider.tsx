@@ -34,6 +34,7 @@ const slides: Slide[] = [
   },
   {
     id: 3,
+    image: "https://i.ibb.co.com/VYh0t580/meg-PCs-hero3.png",
     headline: "Build Your Dream PC",
     subtitle: "Use our interactive PC Builder to craft a machine that matches your exact needs. Every part, hand-picked by you.",
     cta: "Start Building",

@@ -186,9 +186,10 @@ ${JSON.stringify(promptOptionsData, null, 2)}
 Important rules:
 1. The categories "cooler" and "gpu" are optional. You may leave them empty (value null) if the budget doesn't allow or the CPU has integrated graphics. However, you should always try to include a dedicated GPU and cooler first if the budget and use case permit, especially for gaming or high-performance tasks.  
 2. For all other categories (cpu, motherboard, ram, storage, psu, casing), you must select exactly one product ID.
-3. ABSOLUTE CONSTRAINT: The sum of the prices of your recommendations MUST be less than or equal to the remaining budget of ${remainingBudget} BDT. Calculate the sum of the prices of your selections before outputting. If the sum exceeds ${remainingBudget} BDT, you must choose cheaper components or omit optional ones (cooler, gpu) to stay within the budget.
-4. Ensure the build is balanced (e.g., don't pair a high-end CPU with a very weak PSU or motherboard).
-5. Return a valid JSON response containing "recommendations" (object mapping each unfilled slot to a product ID or null) and "reasoning" (object mapping slot to a short justification). Example:
+3. COMPATIBILITY IS AN ABSOLUTE CONSTRAINT: Do not pair incompatible components under any circumstances, even if the budget allows it. If a candidate part is incompatible, choose a different compatible option or omit an optional slot. It is better to stay within budget with a compatible build than to exceed compatibility.
+4. ABSOLUTE CONSTRAINT: The sum of the prices of your recommendations MUST be less than or equal to the remaining budget of ${remainingBudget} BDT. Calculate the sum of the prices of your selections before outputting. If the sum exceeds ${remainingBudget} BDT, you must choose cheaper components or omit optional ones (cooler, gpu) to stay within the budget.
+5. Ensure the build is balanced (e.g., don't pair a high-end CPU with a very weak PSU or motherboard).
+6. Return a valid JSON response containing "recommendations" (object mapping each unfilled slot to a product ID or null) and "reasoning" (object mapping slot to a short justification). Example:
 {
   "recommendations": {
     "cpu": "selected_product_id",
