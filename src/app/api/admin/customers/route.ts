@@ -23,8 +23,10 @@ export async function GET(request: NextRequest) {
         {
           $lookup: {
             from: "orders",
-            localField: "_id",
-            foreignField: "userId",
+            let: { odid: { $toString: "$_id" } },
+            pipeline: [
+              { $match: { $expr: { $eq: ["$userId", "$$odid"] } } },
+            ],
             as: "orders",
           },
         },
