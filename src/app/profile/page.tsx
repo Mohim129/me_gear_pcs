@@ -80,7 +80,9 @@ export default function ProfilePage() {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState(session?.user?.name || "");
-  const [phone, setPhone] = useState<string>((session?.user as { phone?: string })?.phone ?? "");
+  const [phone, setPhone] = useState<string>(
+    (session?.user as { phone?: string })?.phone ?? "",
+  );
   const [isSavingProfile, setIsSavingProfile] = useState(false);
 
   const [currentPassword, setCurrentPassword] = useState("");
@@ -111,7 +113,7 @@ export default function ProfilePage() {
   React.useEffect(() => {
     if (session?.user) {
       setName(session.user.name || "");
-      setPhone(session.user.phone ?? "");
+      setPhone((session.user as { phone?: string }).phone ?? "");
     }
   }, [session]);
 
@@ -401,11 +403,14 @@ export default function ProfilePage() {
             <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
               <div className="flex flex-col gap-2">
                 <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
-                  {profileData?.hasPassword === false ? "Set Account Password" : "Change Password"}
+                  {profileData?.hasPassword === false
+                    ? "Set Account Password"
+                    : "Change Password"}
                 </h3>
                 {profileData?.hasPassword === false && (
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Your account currently uses social login. Set a password here to enable email/password sign-in later.
+                    Your account currently uses social login. Set a password
+                    here to enable email/password sign-in later.
                   </p>
                 )}
               </div>
@@ -458,7 +463,9 @@ export default function ProfilePage() {
                   ) : (
                     <Check className="h-4 w-4" />
                   )}
-                  {profileData?.hasPassword === false ? "Set Password" : "Change Password"}
+                  {profileData?.hasPassword === false
+                    ? "Set Password"
+                    : "Change Password"}
                 </button>
               </div>
             </div>
