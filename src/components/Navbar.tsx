@@ -71,7 +71,7 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
   ];
 
-  if (user) {
+  if (user && !isAdmin) {
     navLinks.push({ name: "Profile", href: "/profile" });
   }
 
@@ -195,13 +195,15 @@ export default function Navbar() {
                               {user.email}
                             </p>
                           </div>
-                          <Link
-                            href="/profile"
-                            onClick={() => setDropdownOpen(false)}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
-                          >
-                            Profile
-                          </Link>
+                          {!isAdmin && (
+                            <Link
+                              href="/profile"
+                              onClick={() => setDropdownOpen(false)}
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                            >
+                              Profile
+                            </Link>
+                          )}
                           <Link
                             href="/profile/orders"
                             onClick={() => setDropdownOpen(false)}

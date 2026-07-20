@@ -40,6 +40,7 @@ export default function ProductDetailClient({ productId }: { productId: string }
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "admin";
   const { addItem } = useCartStore();
   const wishlistItems = useWishlistStore((state) => state.items);
   const addWishlistItem = useWishlistStore((state) => state.addItem);
@@ -163,6 +164,10 @@ export default function ProductDetailClient({ productId }: { productId: string }
 
   const handleAddToCart = () => {
     if (!product) return;
+    if (isAdmin) {
+      toast.error("Admin accounts cannot add products to cart.");
+      return;
+    }
     addItem({
       id: product._id,
       name: product.name,
@@ -174,6 +179,10 @@ export default function ProductDetailClient({ productId }: { productId: string }
   };
 
   const handleAddToWishlist = async () => {
+    if (isAdmin) {
+      toast.error("Admin accounts cannot manage wishlist.");
+      return;
+    }
     if (!session) {
       toast.error("Please log in to add items to your wishlist.");
       router.push(`/login?callback=/products/${productId}`);
@@ -402,7 +411,9 @@ export default function ProductDetailClient({ productId }: { productId: string }
               {/* Add to Cart */}
               <button
                 onClick={handleAddToCart}
-                className="w-full sm:flex-grow flex items-center justify-center gap-2 rounded-xl bg-rust-copper py-3 px-6 text-sm font-semibold text-white shadow-md hover:bg-rust-copper/90 active:scale-[0.98] transition-all"
+                disabled={isAdmin}
+                title={isAdmin ? "Admin accounts cannot add products to cart." : ""}
+                className="w-full sm:flex-grow flex items-center justify-center gap-2 rounded-xl bg-rust-copper py-3 px-6 text-sm font-semibold text-white shadow-md hover:bg-rust-copper/90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShoppingBag className="h-4.5 w-4.5" />
                 Add to Cart
@@ -411,7 +422,9 @@ export default function ProductDetailClient({ productId }: { productId: string }
               {/* Add to Wishlist */}
               <button
                 onClick={handleAddToWishlist}
-                className={`p-3 rounded-xl border transition-colors focus:outline-none ${
+                disabled={isAdmin}
+                title={isAdmin ? "Admin accounts cannot manage wishlist." : ""}
+                className={`p-3 rounded-xl border transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
                   isInWishlist
                     ? "border-rust-copper/30 bg-rust-copper/5 text-rust-copper"
                     : "border-gray-300 hover:border-rust-copper/50 hover:bg-warm-cream/50 text-slate-900 dark:text-zinc-100 hover:text-rust-copper"

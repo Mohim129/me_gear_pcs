@@ -58,6 +58,7 @@ export default function PCBuilderClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "admin";
 
   const {
     selectedComponents,
@@ -214,6 +215,11 @@ export default function PCBuilderClient() {
     if (!session) {
       toast.error("Please log in to finalize and add to cart.");
       router.push(`/login?callback=/pc-builder`);
+      return;
+    }
+
+    if (isAdmin) {
+      toast.error("Admin accounts cannot add builds to cart.");
       return;
     }
 
@@ -629,9 +635,9 @@ export default function PCBuilderClient() {
             <div className="space-y-2.5 pt-2">
               <button
                 onClick={handleFinalize}
-                disabled={!isCoreCompleted}
+                disabled={!isCoreCompleted || isAdmin}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-rust-copper hover:bg-rust-copper/90 text-white font-bold text-sm py-3 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                title={!isCoreCompleted ? "Please select all mandatory core components first (CPU, Motherboard, RAM, Storage, PSU, Casing)." : ""}
+                title={isAdmin ? "Admin accounts cannot add builds to cart." : !isCoreCompleted ? "Please select all mandatory core components first (CPU, Motherboard, RAM, Storage, PSU, Casing)." : ""}
               >
                 <ShoppingBag className="h-4.5 w-4.5" />
                 Finalize & Add to Cart
