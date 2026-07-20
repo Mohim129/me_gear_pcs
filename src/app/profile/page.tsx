@@ -232,9 +232,7 @@ export default function ProfilePage() {
   };
 
   const handleChangePassword = async () => {
-    const isPasswordless = profileData?.hasPassword === false;
-
-    if (!isPasswordless && !currentPassword) {
+    if (!currentPassword) {
       toast.error("Current password is required.");
       return;
     }
@@ -249,13 +247,10 @@ export default function ProfilePage() {
 
     setIsChangingPassword(true);
     try {
-      const payload: Record<string, string> = { newPassword };
-      if (!isPasswordless) payload.currentPassword = currentPassword;
-
       const res = await fetch("/api/user/change-password", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ currentPassword, newPassword }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to change password");
@@ -401,34 +396,22 @@ export default function ProfilePage() {
 
             {/* Change Password */}
             <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 p-6 shadow-sm space-y-5">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
-                  {profileData?.hasPassword === false
-                    ? "Set Account Password"
-                    : "Change Password"}
-                </h3>
-                {profileData?.hasPassword === false && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Your account currently uses social login. Set a password
-                    here to enable email/password sign-in later.
-                  </p>
-                )}
-              </div>
+              <h3 className="font-heading font-bold text-slate-900 dark:text-zinc-200 text-lg">
+                Change Password
+              </h3>
               <div className="space-y-4">
-                {profileData?.hasPassword !== false && (
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Current Password
-                    </label>
-                    <input
-                      type="password"
-                      value={currentPassword}
-                      onChange={(e) => setCurrentPassword(e.target.value)}
-                      placeholder="Enter current password"
-                      className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
-                    />
-                  </div>
-                )}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Current Password
+                  </label>
+                  <input
+                    type="password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    placeholder="Enter current password"
+                    className="w-full rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm text-slate-900 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-rust-copper/50 focus:border-rust-copper transition-all"
+                  />
+                </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                     New Password
@@ -463,9 +446,7 @@ export default function ProfilePage() {
                   ) : (
                     <Check className="h-4 w-4" />
                   )}
-                  {profileData?.hasPassword === false
-                    ? "Set Password"
-                    : "Change Password"}
+                  Change Password
                 </button>
               </div>
             </div>
