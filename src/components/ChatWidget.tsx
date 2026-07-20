@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname, useParams } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { useChatStore, Message } from "@/store/chat";
@@ -16,12 +16,68 @@ import {
   Trash2
 } from "lucide-react";
 
+// Generate contextual follow-up prompts based on the last AI message
+function getFollowUpPrompts(lastAssistantMsg: string, pageContext: string): string[] {
+  const prompts: string[] = [];
+  const lower = lastAssistantMsg.toLowerCase();
+
+  // Context-aware prompts
+  if (lower.includes("cpu") || lower.includes("processor")) {
+    prompts.push("What cooler pairs best with this CPU?");
+    prompts.push("Compare this with an Intel alternative");
+  }
+  if (lower.includes("gpu") || lower.includes("graphics")) {
+    prompts.push("What PSU wattage do I need for this GPU?");
+    prompts.push("Is this GPU good for 1440p gaming?");
+  }
+  if (lower.includes("motherboard") || lower.includes("mobo")) {
+    prompts.push("What RAM is compatible with this board?");
+    prompts.push("Does this motherboard support Wi-Fi?");
+  }
+  if (lower.includes("ram") || lower.includes("memory")) {
+    prompts.push("How much RAM do I need for gaming?");
+    prompts.push("DDR4 vs DDR5 — which should I pick?");
+  }
+  if (lower.includes("budget") || lower.includes("price") || lower.includes("bdt") || lower.includes("৳")) {
+    prompts.push("Can you suggest a cheaper alternative?");
+    prompts.push("What's the best value for money option?");
+  }
+  if (lower.includes("gaming")) {
+    prompts.push("What FPS can I expect in AAA titles?");
+    prompts.push("Suggest peripherals for a gaming setup");
+  }
+  if (lower.includes("build") || lower.includes("pc builder")) {
+    prompts.push("Check compatibility of my build");
+    prompts.push("Take me to the PC Builder");
+  }
+
+  // Generic fallbacks if nothing matched
+  if (prompts.length === 0) {
+    prompts.push("Tell me more about this");
+    prompts.push("Suggest a component for my build");
+    prompts.push("What are the best sellers?");
+  }
+
+  // Limit to 3 prompts
+  return prompts.slice(0, 3);
+}
+
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const pathname = usePathname();
   const params = useParams();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  // Enable mouse-wheel horizontal scrolling on suggestion containers
+  const handleWheelScroll = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    if (container.scrollWidth > container.clientWidth) {
+      e.preventDefault();
+      container.scrollLeft += e.deltaY;
+    }
+  }, []);
   
   const { data: session } = useSession();
   const isLoggedIn = !!session;
@@ -286,12 +342,31 @@ export default function ChatWidget() {
             </div>
           )}
 
+          {/* Dynamic Follow-up Prompts (shown after the last AI response) */}
+          {!isStreaming && messages.length > 0 && messages[messages.length - 1]?.role === "assistant" && messages[messages.length - 1]?.content && (
+            <div className="flex flex-wrap gap-1.5 mt-1 ml-11">
+              {getFollowUpPrompts(messages[messages.length - 1].content, pathname).map((prompt, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleSend(prompt)}
+                  className="inline-flex items-center px-2.5 py-1 rounded-lg border border-rust-copper/30 bg-rust-copper/5 text-[11px] text-rust-copper font-medium hover:bg-rust-copper/15 hover:border-rust-copper/50 transition-all cursor-pointer"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Suggestion Pills */}
+        {/* Suggestion Pills (static, always visible when not streaming) */}
         {!isStreaming && (
-          <div className="px-6 py-2 bg-gray-50/50 dark:bg-zinc-950/20 border-t border-gray-100 dark:border-zinc-850 flex gap-2 overflow-x-auto scrollbar-none">
+          <div
+            ref={suggestionsRef}
+            onWheel={handleWheelScroll}
+            className="px-6 py-2 bg-gray-50/50 dark:bg-zinc-950/20 border-t border-gray-100 dark:border-zinc-850 flex gap-2 overflow-x-auto scrollbar-none"
+          >
             {suggestions.map((s, i) => (
               <button
                 key={i}

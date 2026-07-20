@@ -35,3 +35,18 @@ body {
 .dark .ai-suggested-border {
   background-image: linear-gradient(to right, #121214, #121214), linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #00ff7f, #ff007f);
 }
+
+/* Global input text legibility override */
+input, select, textarea {
+  color: #0f172a !important; /* slate-900 */
+}
+
+@media (prefers-color-scheme: dark) {
+  input, select, textarea {
+    color: #f4f4f5 !important; /* zinc-100 */
+  }
+}
+
+.dark input, .dark select, .dark textarea {
+  color: #f4f4f5 !important; /* zinc-105 */
+}
