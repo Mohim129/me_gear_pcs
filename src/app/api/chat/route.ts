@@ -79,6 +79,7 @@ ${productContext}
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: "gemini-flash-latest",
+      systemInstruction,
     });
 
     const chatHistory = history.map((msg: any) => ({
@@ -88,7 +89,6 @@ ${productContext}
 
     const chat = model.startChat({
       history: chatHistory,
-      systemInstruction,
     });
 
     const encoder = new TextEncoder();
