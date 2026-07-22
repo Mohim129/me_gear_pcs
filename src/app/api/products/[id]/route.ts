@@ -10,7 +10,9 @@ export async function GET(
     const { id } = await params;
     const { db } = await connectToDatabase();
 
-    const query = { _id: ObjectId.isValid(id) ? new ObjectId(id) : id } as any;
+    const query: any = ObjectId.isValid(id)
+      ? { $or: [{ _id: id }, { _id: new ObjectId(id) }] }
+      : { _id: id };
     const product = await db.collection("products").findOne(query);
 
     if (!product) {

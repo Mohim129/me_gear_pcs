@@ -113,12 +113,11 @@ async function adjustStock(db: any, items: any[], type: "increment" | "decrement
       for (const comp of item.meta.components) {
         const prodId = comp.productId;
         if (prodId) {
-          let qId: any = prodId;
-          try {
-            if (ObjectId.isValid(prodId)) qId = new ObjectId(prodId);
-          } catch (e) {}
+          const qId: any = ObjectId.isValid(prodId)
+            ? { $or: [{ _id: prodId }, { _id: new ObjectId(prodId) }] }
+            : { _id: prodId };
           await db.collection("products").updateOne(
-            { _id: qId },
+            qId,
             { $inc: { stock: 1 * factor } }
           );
         }
@@ -126,12 +125,11 @@ async function adjustStock(db: any, items: any[], type: "increment" | "decrement
     } else if (item.productId) {
       // Standalone product
       const prodId = item.productId;
-      let qId: any = prodId;
-      try {
-        if (ObjectId.isValid(prodId)) qId = new ObjectId(prodId);
-      } catch (e) {}
+      const qId: any = ObjectId.isValid(prodId)
+        ? { $or: [{ _id: prodId }, { _id: new ObjectId(prodId) }] }
+        : { _id: prodId };
       await db.collection("products").updateOne(
-        { _id: qId },
+        qId,
         { $inc: { stock: (item.quantity || 1) * factor } }
       );
     }

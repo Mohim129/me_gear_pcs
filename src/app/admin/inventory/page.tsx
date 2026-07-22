@@ -123,7 +123,10 @@ export default function AdminInventory() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Product modification failed");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Product modification failed");
+      }
       return res.json();
     },
     onSuccess: () => {
@@ -717,10 +720,11 @@ export default function AdminInventory() {
                   <div className="space-y-1">
                     <label className="font-bold text-gray-400 uppercase">Category</label>
                     <select
-                      value={formCategory ? JSON.stringify(formCategory) : ""}
+                      value={formCategory?.slug || ""}
                       onChange={(e) => {
-                        const val = e.target.value ? JSON.parse(e.target.value) : null;
-                        setFormCategory(val);
+                        const selectedSlug = e.target.value;
+                        const matchedCat = categories.find(c => c.slug === selectedSlug);
+                        setFormCategory(matchedCat ? { name: matchedCat.name, slug: matchedCat.slug } : null);
                         // Reset specs values when category changes
                         setFormSpecs({});
                         setCustomSpecs([]);
@@ -730,7 +734,7 @@ export default function AdminInventory() {
                     >
                       <option value="">Select a category</option>
                       {categories.map(c => (
-                        <option key={c.slug} value={JSON.stringify({ name: c.name, slug: c.slug })}>{c.name}</option>
+                        <option key={c.slug} value={c.slug}>{c.name}</option>
                       ))}
                     </select>
                   </div>

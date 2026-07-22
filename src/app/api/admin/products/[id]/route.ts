@@ -19,9 +19,13 @@ export async function PUT(
     }
 
     const { id } = await params;
-    if (!ObjectId.isValid(id)) {
+    if (!id) {
       return NextResponse.json({ error: "Invalid Product ID" }, { status: 400 });
     }
+
+    const idQuery: any = ObjectId.isValid(id)
+      ? { $or: [{ _id: id }, { _id: new ObjectId(id) }] }
+      : { _id: id };
 
     const body = await request.json();
     const {
@@ -41,7 +45,7 @@ export async function PUT(
 
     const { db } = await connectToDatabase();
 
-    const existingProduct = await db.collection("products").findOne({ _id: new ObjectId(id) });
+    const existingProduct = await db.collection("products").findOne(idQuery);
     if (!existingProduct) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
@@ -51,8 +55,8 @@ export async function PUT(
     };
 
     if (name) updateFields.name = name;
-    if (sku) updateFields.sku = sku;
-    if (brand) updateFields.brand = brand;
+    if (sku !== undefined) updateFields.sku = sku;
+    if (brand !== undefined) updateFields.brand = brand;
     if (description !== undefined) updateFields.description = description;
     if (price !== undefined) updateFields.price = Number(price);
     if (originalPrice !== undefined) updateFields.originalPrice = Number(originalPrice);
@@ -69,7 +73,7 @@ export async function PUT(
     if (specifications) updateFields.specifications = specifications;
 
     await db.collection("products").updateOne(
-      { _id: new ObjectId(id) },
+      idQuery,
       { $set: updateFields }
     );
 
@@ -98,12 +102,16 @@ export async function DELETE(
     }
 
     const { id } = await params;
-    if (!ObjectId.isValid(id)) {
+    if (!id) {
       return NextResponse.json({ error: "Invalid Product ID" }, { status: 400 });
     }
 
+    const idQuery: any = ObjectId.isValid(id)
+      ? { $or: [{ _id: id }, { _id: new ObjectId(id) }] }
+      : { _id: id };
+
     const { db } = await connectToDatabase();
-    const result = await db.collection("products").deleteOne({ _id: new ObjectId(id) });
+    const result = await db.collection("products").deleteOne(idQuery);
 
     if (result.deletedCount === 0) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

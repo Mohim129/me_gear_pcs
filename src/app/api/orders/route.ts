@@ -1,6 +1,16 @@
 import { connectToDatabase } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
+
+// Helper: convert a string ID to ObjectId safely
+function toObjectId(id: string) {
+  try {
+    return new ObjectId(id);
+  } catch {
+    return null;
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,13 +27,19 @@ export async function GET(request: NextRequest) {
     const isAdmin = session.user.role === "admin";
 
     const { db } = await connectToDatabase();
-    const query = (showAll && isAdmin) ? {} : { userId: session.user.id };
-    const orders = await db.collection("orders").find(query).sort({ createdAt: -1 }).toArray();
+    const query = showAll && isAdmin ? {} : { userId: session.user.id };
+
+    const orders = await db
+      .collection("orders")
+      .find(query)
+      .sort({ createdAt: -1 })
+      .toArray();
+
     return NextResponse.json(orders);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to fetch orders:", error);
     return NextResponse.json(
-      { error: "Failed to fetch orders" },
+      { error: error.message || "Failed to fetch orders" },
       { status: 500 }
     );
   }
@@ -35,7 +51,7 @@ export async function POST(request: NextRequest) {
       headers: request.headers,
     });
 
-    if (!session) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -49,28 +65,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!shippingAddress || !shippingAddress.fullName || !shippingAddress.phone || !shippingAddress.street || !shippingAddress.city || !shippingAddress.zip) {
+    if (
+      !shippingAddress?.fullName ||
+      !shippingAddress?.phone ||
+      !shippingAddress?.street ||
+      !shippingAddress?.city ||
+      !shippingAddress?.zip
+    ) {
       return NextResponse.json(
-        { error: "Complete shipping address is required (fullName, phone, street, city, zip)" },
+        { error: "Complete shipping address is required" },
         { status: 400 }
       );
     }
 
     if (!totalPrice || totalPrice <= 0) {
-      return NextResponse.json(
-        { error: "Invalid total price" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid total price" }, { status: 400 });
     }
 
     const { db } = await connectToDatabase();
-
-    // Build order items and decrement stock
     const orderItems: any[] = [];
 
     for (const item of items) {
       if (item.type === "custom_build") {
-        // Custom build – store as single order item with meta
         const componentDetails: any[] = [];
 
         if (item.components && typeof item.components === "object") {
@@ -83,11 +99,14 @@ export async function POST(request: NextRequest) {
               price: component.price,
             });
 
-            // Decrement stock for each component product
-            await db.collection("products").updateOne(
-              { _id: component.id as any, stock: { $gt: 0 } },
-              { $inc: { stock: -1 } }
-            );
+            // Decrement stock – use ObjectId for lookup
+            const objectId = toObjectId(component.id);
+            if (objectId) {
+              await db.collection("products").updateOne(
+                { _id: objectId, stock: { $gt: 0 } },
+                { $inc: { stock: -1 } }
+              );
+            }
           }
         }
 
@@ -103,7 +122,6 @@ export async function POST(request: NextRequest) {
           },
         });
       } else {
-        // Standalone product
         orderItems.push({
           productId: item.id,
           name: item.name,
@@ -112,11 +130,13 @@ export async function POST(request: NextRequest) {
           image: item.image || null,
         });
 
-        // Decrement stock
-        await db.collection("products").updateOne(
-          { _id: item.id as any, stock: { $gt: 0 } },
-          { $inc: { stock: -item.quantity } }
-        );
+        const objectId = toObjectId(item.id);
+        if (objectId) {
+          await db.collection("products").updateOne(
+            { _id: objectId, stock: { $gt: 0 } },
+            { $inc: { stock: -item.quantity } }
+          );
+        }
       }
     }
 
@@ -146,10 +166,10 @@ export async function POST(request: NextRequest) {
       _id: result.insertedId.toString(),
       ...order,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to create order:", error);
     return NextResponse.json(
-      { error: "Failed to create order" },
+      { error: error.message || "Failed to create order" },
       { status: 500 }
     );
   }
