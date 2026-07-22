@@ -223,6 +223,12 @@ export default function AdminInventory() {
       return;
     }
 
+    // Validate file size (imgBB free tier limit ~32MB)
+    if (file.size > 32 * 1024 * 1024) {
+      toast.error("Image file is too large. Maximum size is 32MB.");
+      return;
+    }
+
     if (type === "primary") setIsUploadingPrimary(true);
     if (type === "additional") setIsUploadingAdditional(true);
 
@@ -235,7 +241,11 @@ export default function AdminInventory() {
         body: formData,
       });
       const data = await res.json();
-      if (!data.success) throw new Error("imgBB upload rejected");
+      if (!data.success) {
+        const errMsg = data?.error?.message || "Upload rejected by imgBB";
+        console.error("imgBB upload error:", data);
+        throw new Error(errMsg);
+      }
 
       const uploadedUrl = data.data.url;
 
@@ -246,8 +256,9 @@ export default function AdminInventory() {
         setFormAdditionalImages(prev => [...prev, uploadedUrl]);
         toast.success("Additional image added!");
       }
-    } catch (e) {
-      toast.error("Image upload failed. Please verify network or key.");
+    } catch (e: any) {
+      console.error("Image upload error:", e);
+      toast.error(e?.message || "Image upload failed.");
     } finally {
       setIsUploadingPrimary(false);
       setIsUploadingAdditional(false);
@@ -518,30 +529,44 @@ export default function AdminInventory() {
           />
         </div>
 
-        <div className="flex gap-2 overflow-x-auto scrollbar-none max-w-full">
-          <button
-            onClick={() => setActiveCategory("All")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-              activeCategory === "All"
-                ? "bg-rust-copper text-white"
-                : "bg-gray-50 hover:bg-gray-100 text-slate-900 dark:text-zinc-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
-            }`}
-          >
-            All Categories
-          </button>
-          {categories.map((cat) => (
+        <div
+          className="flex gap-2 overflow-x-auto max-w-full pb-1"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "#D35400 transparent",
+          }}
+        >
+          <style>{`
+            .category-scroll::-webkit-scrollbar { height: 4px; }
+            .category-scroll::-webkit-scrollbar-track { background: transparent; border-radius: 999px; }
+            .category-scroll::-webkit-scrollbar-thumb { background: #D35400; border-radius: 999px; }
+            .category-scroll::-webkit-scrollbar-thumb:hover { background: #e05d0a; }
+          `}</style>
+          <div className="category-scroll flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin", scrollbarColor: "#D35400 transparent" }}>
             <button
-              key={cat.slug}
-              onClick={() => setActiveCategory(cat.slug)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                activeCategory === cat.slug
+              onClick={() => setActiveCategory("All")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
+                activeCategory === "All"
                   ? "bg-rust-copper text-white"
                   : "bg-gray-50 hover:bg-gray-100 text-slate-900 dark:text-zinc-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
               }`}
             >
-              {cat.name}
+              All Categories
             </button>
-          ))}
+            {categories.map((cat) => (
+              <button
+                key={cat.slug}
+                onClick={() => setActiveCategory(cat.slug)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
+                  activeCategory === cat.slug
+                    ? "bg-rust-copper text-white"
+                    : "bg-gray-50 hover:bg-gray-100 text-slate-900 dark:text-zinc-100 dark:bg-zinc-850 dark:hover:bg-zinc-800 dark:text-zinc-300"
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
