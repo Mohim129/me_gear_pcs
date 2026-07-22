@@ -267,7 +267,7 @@ export default function ChatWidget() {
         {/* Message Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50 dark:bg-zinc-950/20">
           {messages.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-5 px-4 py-8">
+            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 px-4 py-8">
               <div className="h-14 w-14 rounded-full bg-rust-copper/10 flex items-center justify-center text-rust-copper">
                 <Bot className="h-7 w-7" />
               </div>
@@ -276,20 +276,6 @@ export default function ChatWidget() {
                 <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1 max-w-[280px]">
                   Hi, I'm TechBuddy. Ask me anything about components, custom build compatibilities, specs, or product comparisons!
                 </p>
-              </div>
-              {/* Suggested starter prompts */}
-              <div className="flex flex-col gap-2 w-full max-w-[300px]">
-                <span className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Try asking</span>
-                {suggestions.map((s, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSend(s)}
-                    className="w-full text-left px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs text-slate-900 dark:text-zinc-300 font-medium hover:border-rust-copper/50 hover:text-rust-copper hover:bg-warm-cream/30 dark:hover:bg-rust-copper/5 transition-all cursor-pointer shadow-xs hover:shadow-sm group flex items-center gap-2"
-                  >
-                    <Sparkles className="h-3.5 w-3.5 text-rust-copper/50 group-hover:text-rust-copper transition-colors flex-shrink-0" />
-                    {s}
-                  </button>
-                ))}
               </div>
             </div>
           ) : (
@@ -376,21 +362,30 @@ export default function ChatWidget() {
 
         {/* Suggestion Pills (static, always visible when not streaming) */}
         {!isStreaming && (
-          <div
-            ref={suggestionsRef}
-            onWheel={handleWheelScroll}
-            className="px-6 py-2 bg-gray-50/50 dark:bg-zinc-950/20 border-t border-gray-100 dark:border-zinc-850 flex gap-2 overflow-x-auto scrollbar-none"
-          >
-            {suggestions.map((s, i) => (
-              <button
-                key={i}
-                onClick={() => handleSend(s)}
-                className="inline-flex items-center px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs text-slate-900 dark:text-zinc-300 font-medium hover:border-rust-copper/50 hover:text-rust-copper hover:bg-warm-cream/20 transition-all flex-shrink-0 cursor-pointer"
-              >
-                {s}
-              </button>
-            ))}
-          </div>
+          <>
+            <style>{`
+              .chat-suggestions-scroll::-webkit-scrollbar { height: 4px; }
+              .chat-suggestions-scroll::-webkit-scrollbar-track { background: transparent; border-radius: 999px; }
+              .chat-suggestions-scroll::-webkit-scrollbar-thumb { background: #D35400; border-radius: 999px; }
+              .chat-suggestions-scroll::-webkit-scrollbar-thumb:hover { background: #e05d0a; }
+            `}</style>
+            <div
+              ref={suggestionsRef}
+              onWheel={handleWheelScroll}
+              className="chat-suggestions-scroll px-6 py-2 pb-3 bg-gray-50/50 dark:bg-zinc-950/20 border-t border-gray-100 dark:border-zinc-850 flex gap-2 overflow-x-auto"
+              style={{ scrollbarWidth: "thin", scrollbarColor: "#D35400 transparent" }}
+            >
+              {suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleSend(s)}
+                  className="inline-flex items-center px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs text-slate-900 dark:text-zinc-300 font-medium hover:border-rust-copper/50 hover:text-rust-copper hover:bg-warm-cream/20 transition-all flex-shrink-0 cursor-pointer"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </>
         )}
 
         {/* Input Bar */}
